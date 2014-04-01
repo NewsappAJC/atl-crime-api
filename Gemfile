@@ -1,13 +1,25 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+ruby '2.1.0'
 gem 'rails', '4.0.2'
 
 gem 'rails-api'
+gem 'mysql2'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+end
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'factory_girl'
+  gem 'capybara'
+  gem 'rack-test', require: 'rack/test'
+  gem 'annotate'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
