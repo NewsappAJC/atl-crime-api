@@ -23,7 +23,9 @@
 
 class Crime < ActiveRecord::Base
 
-  scope :by_month, -> (month, year) { where("month(occur_date) = #{month} and year(occur_date) = #{year}")}
+  scope :by_month, -> (year, month) { where("month(occur_date) = #{month} and year(occur_date) = #{year}")}
+  scope :by_day, -> (year, month, day) { where("month(occur_date) = #{month} and year(occur_date) = #{year} and day(occur_date) = #{day}")}
+  scope :current_year, -> { where("year(occur_date) = year(current_date())")}
 
   def self.current_month
     now = Time.new
