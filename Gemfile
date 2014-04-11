@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 
 gem 'rails-api'
 gem 'mysql2'
+#gem 'sqlite3'
 
 group :development do
   gem 'better_errors'

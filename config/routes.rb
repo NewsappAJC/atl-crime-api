@@ -1,8 +1,12 @@
 ApdApi::Application.routes.draw do
+  get 'crimes/current_year' => 'crimes#current_year'
   get 'crimes/current_month' => 'crimes#current_month'
   get 'crimes/month/:year/:month' => 'crimes#by_month'
   get 'crimes/day/:year/:month/:day' => 'crimes#by_day'
   get 'crimes/:id' => 'crimes#show'
+  get 'crimes/neighborhoods/:neighborhood' => 'crimes#by_hood'
+  # get 'crimes/type/:UC2_Literal' => 'crimes#by_type'
+  # get 'crimes/neighborhoods/:neighborhood/:UC2_Literal' => '#crimes#by_hood_and_crime'
   # resources :crimes, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

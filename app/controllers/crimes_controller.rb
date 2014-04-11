@@ -4,29 +4,44 @@ class CrimesController < ApplicationController
   # GET /crimes.json
   def index
     @crimes = Crime.current_year
-    render json: @crimes, callback: params[:callback]
+    render json: @crimes
+  end
+
+  def current_year
+    @crimes = Crime.current_year
+    render json: @crimes
   end
 
   def current_month
     @crimes = Crime.current_month
-    render json: @crimes, callback: params[:callback]
+    render json: @crimes
   end
 
   def by_month
     @crimes = Crime.by_month(params[:year],params[:month])
-    render json: @crimes, callback: params[:callback]
+    render json: @crimes
   end
 
   def by_day
     @crimes = Crime.by_day(params[:year], params[:month], params[:day])
-    render json: @crimes, callback: params[:callback]
+    render json: @crimes
   end
+
+  def by_hood
+    @crimes = Crime.by_hood(params[:neighborhood])
+    render json: @crimes
+  end
+
+  # def by_type
+  #   @crimes = Crime.by_type(params[:UC2_Literal])
+  #   render json: @crimes, callback: params[:callback]
+  # end
 
   # GET /crimes/1
   # GET /crimes/1.json
   def show
     @crime = Crime.find(params[:id])
-    render json: @crime, callback: params[:callback]
+    render json: @crime
   end
 
   # POST /crimes

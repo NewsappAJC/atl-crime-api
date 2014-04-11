@@ -2,8 +2,6 @@ require 'csv'
 desc "Imports a CSV file into an ActiveRecord table"
 task :import, [:filename] => :environment do    
 
-	ActiveRecord::Migration.drop_table :crime
-
     CSV.foreach("data/COBRA032014.txt", :headers => true) do |row|
     	if row[2] != nil
 			row[2] = row[2].strip

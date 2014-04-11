@@ -11,25 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327221154) do
+ActiveRecord::Schema.define(version: 20140407195908) do
 
   create_table "crimes", force: true do |t|
     t.integer  "offense_id"
-    t.string   "rpt_date"
-    t.string   "occur_date"
-    t.string   "occur_time"
-    t.string   "poss_date"
-    t.string   "poss_time"
-    t.integer  "beat"
+    t.date     "rpt_date"
+    t.date     "occur_date"
+    t.datetime "occur_time"
+    t.date     "poss_date"
+    t.datetime "poss_time"
+    t.string   "beat"
     t.string   "location"
-    t.integer  "MaxOfnum_victims"
+    t.string   "MaxOfnum_victims"
     t.string   "Shift"
     t.string   "UC2_Literal"
     t.string   "neighborhood"
-    t.integer  "x"
-    t.integer  "y"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "x"
+    t.string   "y"
   end
 
 end
