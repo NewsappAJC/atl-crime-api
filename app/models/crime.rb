@@ -27,7 +27,8 @@ class Crime < ActiveRecord::Base
   scope :by_day, -> (year, month, day) { where("month(occur_date) = #{month} and year(occur_date) = #{year} and day(occur_date) = #{day}")}
   scope :current_year, -> { where("year(occur_date) = year(current_date())")}
   scope :by_hood, lambda { |neighborhood| where('neighborhood = ?', neighborhood) }
-  # scope :by_type, lambda { |UC2_Literal| where('UC2_Literal = ?', UC2_Literal) }
+  scope :by_beat, lambda { |beat| where('beat = ?', beat) }
+  scope :by_shift, lambda { |shift| where('shift = ?', shift) }
 
   def self.current_month
     now = Time.new

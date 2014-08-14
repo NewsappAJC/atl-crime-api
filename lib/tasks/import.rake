@@ -1,8 +1,9 @@
 require 'csv'
-desc "Imports a CSV file into an ActiveRecord table"
+
+desc "Imports comma delimited text file into an ActiveRecord table"
 task :import, [:filename] => :environment do    
 
-    CSV.foreach("data/COBRA032014.txt", :headers => true) do |row|
+    CSV.foreach("data/Cobra073114.txt", :headers => true) do |row|
     	if row[2] != nil
 			row[2] = row[2].strip
 		end

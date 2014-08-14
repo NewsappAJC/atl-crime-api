@@ -32,10 +32,15 @@ class CrimesController < ApplicationController
     render json: @crimes
   end
 
-  # def by_type
-  #   @crimes = Crime.by_type(params[:UC2_Literal])
-  #   render json: @crimes, callback: params[:callback]
-  # end
+  def by_beat
+    @crimes = Crime.by_beat(params[:beat])
+    render json: @crimes
+  end
+
+  def by_shift
+    @crimes = Crime.by_shift(params[:shift])
+    render json: @crimes
+  end
 
   # GET /crimes/1
   # GET /crimes/1.json
