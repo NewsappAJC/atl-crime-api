@@ -1,29 +1,21 @@
-# README #
+== AJC CRIME
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Drop current table and set up new table for new crime data
+     
+    rake db:reset
 
-### What is this repository for? ###
+Import new crime data
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+	rake import
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+API Routes available:
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+/crimes/:id
+/crimes/current_year
+/crimes/current_month
+/crimes/month/:year/:month
+/crimes/day/:year/:month/:day
+/crimes/neighborhood/:neighborhood
+/crimes/shift/:shift
+/crimes/beat/:beat
