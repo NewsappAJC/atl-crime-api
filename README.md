@@ -12,10 +12,17 @@ Import new crime data
 API Routes available:
 
 /crimes/:id
+
 /crimes/current_year
+
 /crimes/current_month
+
 /crimes/month/:year/:month
+
 /crimes/day/:year/:month/:day
+
 /crimes/neighborhood/:neighborhood
+
 /crimes/shift/:shift
+
 /crimes/beat/:beat
