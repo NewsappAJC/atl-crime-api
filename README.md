@@ -1,4 +1,4 @@
-== AJC CRIME
+# AJC CRIME API #
 
 Drop current table and set up new table for new crime data
      
@@ -9,7 +9,7 @@ Import new crime data
 	rake import
 
 
-API Routes available:
+### API Routes available: ###
 
 /crimes/:id
 
