@@ -2,11 +2,11 @@ class CreateCrimes < ActiveRecord::Migration
   def change
     create_table :crimes do |t|
       t.integer :offense_id
-      t.date :rpt_date
-      t.date :occur_date
-      t.datetime :occur_time
-      t.date :poss_date
-      t.datetime :poss_time
+      t.string :rpt_date
+      t.string :occur_date
+      t.string :occur_time
+      t.string :poss_date
+      t.string :poss_time
       t.string :beat
       t.string :location
       t.string :MaxOfnum_victims
@@ -15,6 +15,8 @@ class CreateCrimes < ActiveRecord::Migration
       t.string :neighborhood
       t.string :x
       t.string :y
+      t.string :crime
+      t.string :zone
     end
   end
 end

@@ -42,6 +42,16 @@ class CrimesController < ApplicationController
     render json: @crimes
   end
 
+  def by_crime
+    @crimes = Crime.by_crime(params[:crime])
+    render json: @crimes
+  end
+
+  def by_zone
+    @crimes = Crime.by_zone(params[:zone])
+    render json: @crimes
+  end
+
   # GET /crimes/1
   # GET /crimes/1.json
   def show

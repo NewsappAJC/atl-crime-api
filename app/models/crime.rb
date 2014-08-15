@@ -19,7 +19,7 @@
 #  y                :integer
 #  created_at       :datetime
 #  updated_at       :datetime
-#
+# 
 
 class Crime < ActiveRecord::Base
 
@@ -29,6 +29,8 @@ class Crime < ActiveRecord::Base
   scope :by_hood, lambda { |neighborhood| where('neighborhood = ?', neighborhood) }
   scope :by_beat, lambda { |beat| where('beat = ?', beat) }
   scope :by_shift, lambda { |shift| where('shift = ?', shift) }
+  scope :by_crime, lambda { |crime| where('crime = ?', crime) }
+  scope :by_zone, lambda { |zone| where('zone = ?', zone) }
 
   def self.current_month
     now = Time.new

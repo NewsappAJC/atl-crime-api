@@ -3,7 +3,7 @@ require 'csv'
 desc "Imports comma delimited text file into an ActiveRecord table"
 task :import, [:filename] => :environment do    
 
-    CSV.foreach("data/Cobra073114.txt", :headers => true) do |row|
+    CSV.foreach("data/COBRA080714.txt", :headers => true) do |row|
     	if row[2] != nil
 			row[2] = row[2].strip
 		end
@@ -28,6 +28,11 @@ task :import, [:filename] => :environment do
 		row.delete(9)
 		row.delete(8)
 		row.delete(0)
-      	Crime.create!(row.to_hash)
+
+		obj = row.to_hash
+		zone = obj['beat']
+		obj['zone'] = zone[0]
+		obj['crime'] = obj['UC2_Literal']
+	    Crime.create!(obj)
     end
 end
