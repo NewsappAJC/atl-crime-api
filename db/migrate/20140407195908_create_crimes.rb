@@ -3,7 +3,7 @@ class CreateCrimes < ActiveRecord::Migration
     create_table :crimes do |t|
       t.integer :offense_id
       t.string :rpt_date
-      t.string :occur_date
+      t.datetime :occur_date
       t.string :occur_time
       t.string :poss_date
       t.string :poss_time

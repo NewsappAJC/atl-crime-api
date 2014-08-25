@@ -24,7 +24,7 @@ class CrimesController < ApplicationController
 
   def by_day
     @crimes = Crime.by_day(params[:year], params[:month], params[:day])
-    render json: @crimes
+    render :json => @crimes.map { |crime| crime.as_json(:only => :id, :methods => :occur_date) }
   end
 
   def by_hood
@@ -50,6 +50,11 @@ class CrimesController < ApplicationController
   def by_zone
     @crimes = Crime.by_zone(params[:zone])
     render json: @crimes
+  end
+
+  def by_weekday
+    @crimes = Crime.by_weekday(params[:weekday])
+    render :json => @crimes.map { |crime| crime.as_json(:only => :id, :methods => :occur_date) }
   end
 
   # GET /crimes/1

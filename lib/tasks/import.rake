@@ -1,9 +1,17 @@
 require 'csv'
+require 'date'
 
 desc "Imports comma delimited text file into an ActiveRecord table"
 task :import, [:filename] => :environment do    
 
-    CSV.foreach("data/COBRA080714.txt", :headers => true) do |row|
+	crime_data = CSV.read("data/COBRA080714.txt", quote_char: "\x00", :headers => true, :header_converters => lambda { |h| h.gsub(' ', '_') }, :skip_blanks => true)
+
+	line = crime_data.length-1
+
+	crime_data.delete(line)
+
+    crime_data.each do |row|
+
     	if row[2] != nil
 			row[2] = row[2].strip
 		end
@@ -19,6 +27,7 @@ task :import, [:filename] => :environment do
 		if row[6] != nil
 			row[6] = row[6].strip
 		end
+
 		row.delete(20)
 		row.delete(17)
 		row.delete(16)
@@ -30,9 +39,12 @@ task :import, [:filename] => :environment do
 		row.delete(0)
 
 		obj = row.to_hash
+		occured = obj['occur_date']
 		zone = obj['beat']
+		obj['occur_date'] = Date.strptime(occured, '%m/%d/%Y')
 		obj['zone'] = zone[0]
 		obj['crime'] = obj['UC2_Literal']
+
 	    Crime.create!(obj)
     end
 end

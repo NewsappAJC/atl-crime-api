@@ -9,6 +9,7 @@ ApdApi::Application.routes.draw do
   get 'crimes/shift/:shift' => 'crimes#by_shift'
   get 'crimes/type/:crime' => 'crimes#by_crime'
   get 'crimes/zone/:zone' => 'crimes#by_zone'
+  get 'crimes/weekday/:weekday' => 'crimes#by_weekday'
 
   # resources :crimes, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
