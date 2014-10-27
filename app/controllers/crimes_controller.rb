@@ -52,10 +52,13 @@ class CrimesController < ApplicationController
     render json: @crimes
   end
 
-  def by_weekday
-    @crimes = Crime.by_weekday(params[:weekday])
-    render :json => @crimes.map { |crime| crime.as_json(:only => :id, :methods => :occur_date) }
+  def beat_hoods
+    @crimes = Crime.beat_hoods(params[:beat])
+    data = @crimes.map { |crime| crime.as_json(:only => [:zone, :beat, :neighborhood], :methods => :zone) }
+    newdata = data.map { |h| h['neighborhood'] }.uniq
+    render :json => newdata
   end
+
 
   # GET /crimes/1
   # GET /crimes/1.json
@@ -64,36 +67,4 @@ class CrimesController < ApplicationController
     render json: @crime
   end
 
-  # POST /crimes
-  # POST /crimes.json
-  # def create
-  #   @crime = Crime.new(params[:crime])
-
-  #   if @crime.save
-  #     render json: @crime, status: :created, location: @crime
-  #   else
-  #     render json: @crime.errors, status: :unprocessable_entity
-  #   end
-  # end
-
-  # PATCH/PUT /crimes/1
-  # PATCH/PUT /crimes/1.json
-  # def update
-  #   @crime = Crime.find(params[:id])
-
-  #   if @crime.update(params[:crime])
-  #     head :no_content
-  #   else
-  #     render json: @crime.errors, status: :unprocessable_entity
-  #   end
-  # end
-
-  # DELETE /crimes/1
-  # DELETE /crimes/1.json
-  # def destroy
-  #   @crime = Crime.find(params[:id])
-  #   @crime.destroy
-
-  #   head :no_content
-  # end
 end
