@@ -33,3 +33,8 @@ Import new crime data
 
 /crimes/:field/:value/thisyear/:field2/:value2
 
+
+### TO DO ###
+* Beats tables with neighborhood and population data
+* Set up cron job/scraper to grab data and unzip from APD
+
