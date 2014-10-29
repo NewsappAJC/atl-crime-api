@@ -3,17 +3,17 @@ class CrimesController < ApplicationController
   # GET /crimes
   # GET /crimes.json
   def index
-    @crimes = Crime.current_year
+    @crimes = Crime.current_year.group_by(&:crime)
     render json: @crimes
   end
 
   def current_year
-    @crimes = Crime.current_year
+    @crimes = Crime.current_year.group_by(&:crime)
     render json: @crimes
   end
 
   def current_month
-    @crimes = Crime.current_month
+    @crimes = Crime.current_month.group_by(&:crime)
     render json: @crimes
   end
 
@@ -27,37 +27,36 @@ class CrimesController < ApplicationController
     render :json => @crimes.map { |crime| crime.as_json(:only => :id, :methods => :occur_date) }
   end
 
-  def by_hood
-    @crimes = Crime.by_hood(params[:neighborhood])
+  def by_filter
+    @crimes = Crime.by_filter(params[:field],params[:value])
     render json: @crimes
   end
 
-  def by_beat
-    @crimes = Crime.by_beat(params[:beat])
+  def by_filter_filter
+    @crimes = Crime.by_filter(params[:field],params[:value]).by_filter(params[:field2],params[:value2])
     render json: @crimes
   end
 
-  def by_shift
-    @crimes = Crime.by_shift(params[:shift])
+  def by_filter_thismonth
+    @crimes = Crime.by_filter(params[:field],params[:value]).current_month
     render json: @crimes
   end
 
-  def by_crime
-    @crimes = Crime.by_crime(params[:crime])
+  def by_filter_thisyear
+    @crimes = Crime.by_filter(params[:field],params[:value]).current_year
     render json: @crimes
   end
 
-  def by_zone
-    @crimes = Crime.by_zone(params[:zone])
+  def by_filter_thismonth_filter
+    @crimes = Crime.by_filter(params[:field],params[:value]).current_month.by_filter(params[:field2],params[:value2])
     render json: @crimes
   end
 
-  def beat_hoods
-    @crimes = Crime.beat_hoods(params[:beat])
-    data = @crimes.map { |crime| crime.as_json(:only => [:zone, :beat, :neighborhood], :methods => :zone) }
-    newdata = data.map { |h| h['neighborhood'] }.uniq
-    render :json => newdata
+  def by_filter_thisyear_filter
+    @crimes = Crime.by_filter(params[:field],params[:value]).current_year.by_filter(params[:field2],params[:value2])
+    render json: @crimes
   end
+
 
 
   # GET /crimes/1

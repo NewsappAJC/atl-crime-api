@@ -27,15 +27,12 @@ class Crime < ActiveRecord::Base
   scope :by_day, -> (year, month, day) { where("month(occur_date) = #{month} and year(occur_date) = #{year} and day(occur_date) = #{day}")}
   scope :current_year, -> { where("year(occur_date) = year(current_date())")}
   scope :current_month, -> { where("month(occur_date) = month(current_date()) and year(occur_date) = year(current_date())")}
-  scope :by_hood, lambda { |neighborhood| where('neighborhood = ?', neighborhood) }
   scope :by_beat, lambda { |beat| where('beat = ?', beat) }
   scope :by_shift, lambda { |shift| where('shift = ?', shift) }
   scope :by_crime, lambda { |crime| where('crime = ?', crime) }
   scope :by_zone, lambda { |zone| where('zone = ?', zone) }
 
-  scope :beat_hoods, lambda { |beat| where('beat = ?', beat) }
-
-  # scope :by_weekday, -> (weekday) { where("weekday(occur_date) = #{weekday}")}
+  scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
 
 
   def self.by_month
@@ -44,5 +41,6 @@ class Crime < ActiveRecord::Base
     year = now.year
     self.by_month(year, month)
   end
+
 
 end

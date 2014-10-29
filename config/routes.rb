@@ -4,12 +4,12 @@ ApdApi::Application.routes.draw do
   get 'crimes/month/:year/:month' => 'crimes#by_month'
   get 'crimes/day/:year/:month/:day' => 'crimes#by_day'
   get 'crimes/:id' => 'crimes#show'
-  get 'crimes/neighborhood/:neighborhood' => 'crimes#by_hood'
-  get 'crimes/beat/:beat' => 'crimes#by_beat'
-  get 'crimes/shift/:shift' => 'crimes#by_shift'
-  get 'crimes/type/:crime' => 'crimes#by_crime'
-  get 'crimes/zone/:zone' => 'crimes#by_zone'
-  get 'crimes/beat/:beat/neighborhoods' => 'crimes#beat_hoods'
+  get 'crimes/:field/:value' => 'crimes#by_filter'
+  get 'crimes/:field/:value/thismonth' => 'crimes#by_filter_thismonth'
+  get 'crimes/:field/:value/thisyear' => 'crimes#by_filter_thisyear'
+  get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
+  get 'crimes/:field/:value/thismonth/:field2/:value2' => 'crimes#by_filter_thismonth_filter'
+  get 'crimes/:field/:value/thisyear/:field2/:value2' => 'crimes#by_filter_thisyear_filter'
 
 
   # resources :crimes, except: [:new, :edit]
