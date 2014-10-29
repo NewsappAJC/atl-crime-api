@@ -11,25 +11,25 @@ Import new crime data
 
 ### API Routes available: ###
 
-/crimes/current_year' -> this year
+/crimes/current_year -> this year
 
-/crimes/current_month' -> this month
+/crimes/current_month -> this month
 
-/crimes/month/:year/:month' -> specific month
+/crimes/month/:year/:month -> specific month
 
-/crimes/day/:year/:month/:day' -> specific day
+/crimes/day/:year/:month/:day -> specific day
 
-/crimes/:id' -> by id
+/crimes/:id -> by id
 
-/crimes/:field/:value'
+/crimes/:field/:value
 
-/crimes/:field/:value/thismonth'
+/crimes/:field/:value/thismonth
 
-/crimes/:field/:value/thisyear'
+/crimes/:field/:value/thisyear
 
-/crimes/:field/:value/:field2/:value2'
+/crimes/:field/:value/:field2/:value2
 
-/crimes/:field/:value/thismonth/:field2/:value2'
+/crimes/:field/:value/thismonth/:field2/:value2
 
-/crimes/:field/:value/thisyear/:field2/:value2'
+/crimes/:field/:value/thisyear/:field2/:value2
 
