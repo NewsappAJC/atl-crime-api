@@ -4,7 +4,7 @@ require 'date'
 desc "Imports comma delimited text file into an ActiveRecord table"
 task :import, [:filename] => :environment do    
 
-	crime_data = CSV.read("data/COBRA102214.txt", quote_char: "\x00", :headers => true, :header_converters => lambda { |h| h.gsub(' ', '_') }, :skip_blanks => true)
+	crime_data = CSV.read("data/data.txt", quote_char: "\x00", :headers => true, :header_converters => lambda { |h| h.gsub(' ', '_') }, :skip_blanks => true)
 
 	line = crime_data.length-1
 

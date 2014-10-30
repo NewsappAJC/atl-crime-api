@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 
 gem 'rails-api'
 gem 'mysql2'
+gem 'zipruby', '~> 0.3.6'
 #gem 'sqlite3'
 
 group :development do
@@ -21,6 +22,8 @@ group :development, :test do
   gem 'rack-test', require: 'rack/test'
   gem 'annotate'
 end
+
+gem 'rails_12factor', group: :production
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
