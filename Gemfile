@@ -39,3 +39,4 @@ gem 'rails_12factor', group: :production
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
