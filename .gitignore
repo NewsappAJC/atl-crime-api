@@ -16,7 +16,7 @@
 /tmp
 
 database.yml
-Gemfile.lock
+
 
 *.rbc
 *.sassc
