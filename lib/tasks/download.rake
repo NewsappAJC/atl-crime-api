@@ -19,7 +19,7 @@ obj.write(Pathname.new(path_to_file))
   Zip::Archive.open_buffer(data) do |z|
     z.fopen(z.get_name(0)) do |e|
       File.open('/data.txt', 'w:ASCII-8BIT') do |f|
-        obj.write(f) e.read
+        obj.write(e)
       end
     end
   end
