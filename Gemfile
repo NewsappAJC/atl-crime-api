@@ -6,6 +6,10 @@ gem 'rails', '4.0.2'
 gem 'rails-api'
 gem 'mysql2'
 gem 'zipruby', '~> 0.3.6'
+# gem 'paperclip'
+gem 'aws-sdk'
+
+
 #gem 'sqlite3'
 
 group :development do
