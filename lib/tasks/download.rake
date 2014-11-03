@@ -1,25 +1,14 @@
 require 'net/http'
 require 'zipruby'
-
-
-# aws s3 config
-s3 = AWS::S3.new(
-	:access_key_id => 'AKIAJ6YGSWZPMTCT45NQ',
-	:secret_access_key => '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'
-)
-
-obj = s3.buckets['crime-api'].objects.create('crimedata', 'data')
-
-task :pull, :remote_path do |t, args|
-  uri = URI(args[:remote_path])
+ 
+task :pull do |t|
+  uri = URI('http://www.atlantapd.org/pdf/crime-data-downloads/F3F58CF3-4E41-4348-8757-FE9E8EB0318B.zip')
   data = Net::HTTP.get(uri)
  
-obj.write(Pathname.new(path_to_file))
-
   Zip::Archive.open_buffer(data) do |z|
     z.fopen(z.get_name(0)) do |e|
-      File.open('/data.txt', 'w:ASCII-8BIT') do |f|
-        obj.write(e)
+      File.open('tmp/data.txt', 'w:ASCII-8BIT') do |f|
+        f.write e.read
       end
     end
   end
