@@ -3,13 +3,15 @@ ApdApi::Application.routes.draw do
   get 'crimes/current_month' => 'crimes#current_month'
   get 'crimes/month/:year/:month' => 'crimes#by_month'
   get 'crimes/day/:year/:month/:day' => 'crimes#by_day'
-  get 'crimes/:id' => 'crimes#show'
+  # get 'crimes/:id' => 'crimes#show'
   get 'crimes/:field/:value' => 'crimes#by_filter'
   get 'crimes/:field/:value/thismonth' => 'crimes#by_filter_thismonth'
   get 'crimes/:field/:value/thisyear' => 'crimes#by_filter_thisyear'
   get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
   get 'crimes/:field/:value/thismonth/:field2/:value2' => 'crimes#by_filter_thismonth_filter'
   get 'crimes/:field/:value/thisyear/:field2/:value2' => 'crimes#by_filter_thisyear_filter'
+  get 'crimes/zones/' => 'crimes#all_zones'
+  get 'crimes/beats/' => 'crimes#all_beats'
 
 
   # resources :crimes, except: [:new, :edit]

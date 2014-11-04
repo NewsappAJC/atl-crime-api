@@ -31,8 +31,8 @@ class Crime < ActiveRecord::Base
   scope :by_shift, lambda { |shift| where('shift = ?', shift) }
   scope :by_crime, lambda { |crime| where('crime = ?', crime) }
   scope :by_zone, lambda { |zone| where('zone = ?', zone) }
-
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
+  scope :view_all
 
 
   def self.by_month
