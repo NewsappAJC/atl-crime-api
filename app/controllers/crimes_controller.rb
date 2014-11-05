@@ -57,18 +57,6 @@ class CrimesController < ApplicationController
     render json: @crimes, callback: params[:callback]
   end
 
-  def all_zones
-    @crimes = Crime.current_year.group_by(&:zone)
-    render json: @crimes, callback: params[:callback]
-  end
-
-  def all_beats
-    @crimes = Crime.current_year.group_by(&:beat)
-    render json: @crimes, callback: params[:callback]
-  end
-
-
-
 
   # GET /crimes/1
   # GET /crimes/1.json

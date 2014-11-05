@@ -10,8 +10,6 @@ ApdApi::Application.routes.draw do
   get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
   get 'crimes/:field/:value/thismonth/:field2/:value2' => 'crimes#by_filter_thismonth_filter'
   get 'crimes/:field/:value/thisyear/:field2/:value2' => 'crimes#by_filter_thisyear_filter'
-  get 'crimes/zones/' => 'crimes#all_zones'
-  get 'crimes/beats/' => 'crimes#all_beats'
 
 
   # resources :crimes, except: [:new, :edit]
