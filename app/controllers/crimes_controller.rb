@@ -3,17 +3,17 @@ class CrimesController < ApplicationController
   # GET /crimes
   # GET /crimes.json
   def index
-    @crimes = Crime.current_year.group_by(&:crime)
+    @crimes = Crime.current_year
     render json: @crimes, callback: params[:callback]
   end
 
   def current_year
-    @crimes = Crime.current_year.group_by(&:crime)
+    @crimes = Crime.current_year
     render json: @crimes, callback: params[:callback]
   end
 
   def current_month
-    @crimes = Crime.current_month.group_by(&:crime)
+    @crimes = Crime.current_month
     render json: @crimes, callback: params[:callback]
   end
 
