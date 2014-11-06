@@ -58,6 +58,7 @@ class CrimesController < ApplicationController
   end
 
 
+
   # GET /crimes/1
   # GET /crimes/1.json
   def show
