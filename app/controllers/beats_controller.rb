@@ -8,5 +8,10 @@ class BeatsController < ApplicationController
     render json: @beats, callback: params[:callback]
   end
 
+  def all_beats
+  	@beats = Beat.all_beats
+  	render json: @beats, callback: params[:callback]
+  end
+
 
 end

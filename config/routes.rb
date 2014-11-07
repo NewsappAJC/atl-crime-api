@@ -11,6 +11,7 @@ ApdApi::Application.routes.draw do
   get 'crimes/:field/:value/thismonth/:field2/:value2' => 'crimes#by_filter_thismonth_filter'
   get 'crimes/:field/:value/thisyear/:field2/:value2' => 'crimes#by_filter_thisyear_filter'
   get 'zone/:zone' => 'beats#list_beats'
+  get 'zone/' => 'beats#all_beats'
 
   # resources :crimes, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
