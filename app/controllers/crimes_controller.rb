@@ -7,6 +7,11 @@ class CrimesController < ApplicationController
     render json: @crimes, callback: params[:callback]
   end
 
+  def most_recent
+    @crimes = Crime.find(:all, :order => "id desc", :limit => 25).reverse
+    render json: @crimes, callback: params[:callback]
+  end
+
   def current_year
     @crimes = Crime.current_year
     render json: @crimes, callback: params[:callback]

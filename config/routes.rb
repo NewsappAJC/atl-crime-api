@@ -3,6 +3,7 @@ ApdApi::Application.routes.draw do
   get 'crimes/current_month' => 'crimes#current_month'
   get 'crimes/month/:year/:month' => 'crimes#by_month'
   get 'crimes/day/:year/:month/:day' => 'crimes#by_day'
+  get 'crimes/recent' => 'crimes#most_recent'
   # get 'crimes/:id' => 'crimes#show'
   get 'crimes/:field/:value' => 'crimes#by_filter'
   get 'crimes/:field/:value/thismonth' => 'crimes#by_filter_thismonth'
