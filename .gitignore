@@ -19,7 +19,7 @@
 /tmp/sessions
 /tmp/sockets
 
-
+# database.yml
 
 
 *.rbc
