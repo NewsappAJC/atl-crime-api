@@ -16,6 +16,7 @@ development:
   username: root
   password: ashlyn223
 
+# might not need this, lets see
 production:
   adapter: mysql2
   host: ajc-web.cgmwsizvte0i.us-east-1.rds.amazonaws.com
