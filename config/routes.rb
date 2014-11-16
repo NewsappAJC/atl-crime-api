@@ -12,6 +12,8 @@ ApdApi::Application.routes.draw do
   get 'crimes/:field/:value/lastmonth/:field2/:value2' => 'crimes#by_filter_lastmonth_filter'
   get 'crimes/:field/:value/lastyear/:field2/:value2' => 'crimes#by_filter_lastyear_filter'
   get 'zone/:zone' => 'beats#list_beats'
+
+  #zones subview
   get 'zone/' => 'beats#all_beats'
 
   # resources :crimes, except: [:new, :edit]
