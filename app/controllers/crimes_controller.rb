@@ -13,12 +13,12 @@ class CrimesController < ApplicationController
   end
 
   def last_year
-    @crimes = Crime.current_year
+    @crimes = Crime.created_between(1.month.ago, Time.now)
     render json: @crimes, callback: params[:callback]
   end
 
   def last_month
-    @crimes = Crime.current_month
+    @crimes = Crime.created_between(1.month.ago, Time.now)
     render json: @crimes, callback: params[:callback]
   end
 

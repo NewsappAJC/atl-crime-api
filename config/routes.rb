@@ -1,6 +1,6 @@
 ApdApi::Application.routes.draw do
-  get 'crimes/lastyear' => 'crimes#current_year'
-  get 'crimes/lastmonth' => 'crimes#current_month'
+  get 'crimes/lastyear' => 'crimes#last_year'
+  get 'crimes/lastmonth' => 'crimes#last_month'
   get 'crimes/month/:year/:month' => 'crimes#by_month'
   get 'crimes/day/:year/:month/:day' => 'crimes#by_day'
   # get 'crimes/recent' => 'crimes#most_recent'
