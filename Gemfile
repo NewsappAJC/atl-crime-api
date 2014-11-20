@@ -11,8 +11,6 @@ gem 'aws-sdk'
 
 
 
-#gem 'sqlite3'
-
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
