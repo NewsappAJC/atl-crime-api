@@ -17,6 +17,7 @@ class CreateCrimes < ActiveRecord::Migration
       t.string :y
       t.string :crime
       t.string :zone
+      t.string :violent
     end
   end
 end

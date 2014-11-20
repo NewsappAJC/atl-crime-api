@@ -45,6 +45,14 @@ task :import, [:filename] => :environment do
 		obj['zone'] = zone[0]
 		obj['crime'] = obj['UC2_Literal']
 
+		violent = ['HOMICIDE','RAPE','AGG ASSAULT','ROBBERY']
+
+		if violent.include?(obj['crime'])
+			obj['violent'] = true
+		else
+			obj['violent'] = false
+		end
+
 	    Crime.create!(obj)
     end
 end

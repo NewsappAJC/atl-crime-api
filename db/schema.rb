@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140407195908) do
     t.string   "y"
     t.string   "crime"
     t.string   "zone"
+    t.string   "violent"
   end
 
 end

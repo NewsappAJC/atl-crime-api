@@ -14,7 +14,8 @@ ApdApi::Application.routes.draw do
   get 'zone/:zone' => 'beats#list_beats'
 
   #zones subview
-  get 'zone/' => 'beats#all_beats'
+  #get 'zone/' => 'beats#all_beats'
+  get 'zone/' => 'zones#all_zones'
 
   # resources :crimes, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.
