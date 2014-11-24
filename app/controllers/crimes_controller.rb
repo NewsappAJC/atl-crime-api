@@ -43,24 +43,29 @@ class CrimesController < ApplicationController
   end
 
   def by_filter_lastmonth
-    @crimes = Crime.created_between(3.month.ago, Time.now).by_filter(params[:field],params[:value])
+    @crimes = Crime.created_between(2.month.ago, Time.now).by_filter(params[:field],params[:value])
     render json: @crimes, callback: params[:callback]
   end
 
   def by_filter_lastyear
-    @crimes = Crime.created_between(1.year.ago, Time.now).by_filter(params[:field],params[:value])
+    @crimes = Crime.created_between(6.month.ago, Time.now).by_filter(params[:field],params[:value])
     render json: @crimes, callback: params[:callback]
   end
 
   def by_filter_lastmonth_filter
-    @crimes = Crime.created_between(3.month.ago, Time.now).by_filter(params[:field],params[:value]).by_filter(params[:field2],params[:value2])
+    @crimes = Crime.created_between(2.month.ago, Time.now).by_filter(params[:field],params[:value]).by_filter(params[:field2],params[:value2])
     render json: @crimes, callback: params[:callback]
   end
 
   def by_filter_lastyear_filter
-    @crimes = Crime.created_between(1.year.ago, Time.now).by_filter(params[:field],params[:value]).by_filter(params[:field2],params[:value2])
+    @crimes = Crime.created_between(6.month.ago, Time.now).by_filter(params[:field],params[:value]).by_filter(params[:field2],params[:value2])
     render json: @crimes, callback: params[:callback]
   end
+
+  # def by_filter_crimecount
+  #   @crimes = Crime.by_filter(params[:field],params[:value])
+  #   render json: @crimes, callback: params[:callback]
+  # end
 
 
 

@@ -23,6 +23,7 @@
 
 class Crime < ActiveRecord::Base
 
+
   scope :by_month, -> (year, month) { where("month(occur_date) = #{month} and year(occur_date) = #{year}")}
   scope :by_day, -> (year, month, day) { where("month(occur_date) = #{month} and year(occur_date) = #{year} and day(occur_date) = #{day}")}
   scope :current_year, -> { where("year(occur_date) = year(current_date())")}
@@ -33,7 +34,6 @@ class Crime < ActiveRecord::Base
   scope :by_zone, lambda { |zone| where('zone = ?', zone) }
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
-  scope :view_all
 
 
   def self.by_month

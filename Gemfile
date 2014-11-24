@@ -8,6 +8,7 @@ gem 'mysql2'
 gem 'zipruby', '~> 0.3.6'
 # gem 'paperclip'
 gem 'aws-sdk'
+gem 'active_model_serializers'
 
 
 
