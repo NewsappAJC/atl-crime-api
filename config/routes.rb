@@ -11,12 +11,13 @@ ApdApi::Application.routes.draw do
   get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
   get 'crimes/:field/:value/twomonth/:field2/:value2' => 'crimes#by_filter_twomonth_filter'
   get 'crimes/:field/:value/sixmonth/:field2/:value2' => 'crimes#by_filter_sixmonth_filter'
-  get 'zone/:zone' => 'beats#list_beats'
-  #get 'crimes/:field/:value/total-incidents' => 'crimes#by_filter_crimecount'
+
+  # this spits out ugly hash { date => # of crime incidents on that date }
+  get 'crimes/:field/:value/total-incidents' => 'crimes#by_filter_crimecount'
 
   #zones subview
-  #get 'zone/' => 'beats#all_beats'
   get 'zones/' => 'zones#all_zones'
+  get 'zone/:zone' => 'beats#list_beats'
 
   # resources :crimes, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.

@@ -48,9 +48,9 @@ task :import, [:filename] => :environment do
 		violent = ['HOMICIDE','RAPE','AGG ASSAULT','ROBBERY']
 
 		if violent.include?(obj['crime'])
-			obj['violent'] = true
+			obj['violent'] = 'violent'
 		else
-			obj['violent'] = false
+			obj['violent'] = 'nonviolent'
 		end
 
 	    Crime.create!(obj)
