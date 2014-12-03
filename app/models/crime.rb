@@ -23,6 +23,7 @@
 
 class Crime < ActiveRecord::Base
 
+  validates_uniqueness_of :offense_id
 
   scope :by_month, -> (year, month) { where("month(occur_date) = #{month} and year(occur_date) = #{year}")}
   scope :by_day, -> (year, month, day) { where("month(occur_date) = #{month} and year(occur_date) = #{year} and day(occur_date) = #{day}")}
@@ -42,6 +43,14 @@ class Crime < ActiveRecord::Base
     year = now.year
     self.by_month(year, month)
   end
+
+
+  def self.violent_crimes
+
+    { violent: where(violent: 1).count(group: :occur_date).to_a  ,
+     nonviolent: where(violent: 0).count(group: :occur_date).to_a  }
+  end
+
 
 
 end

@@ -13,7 +13,7 @@ ApdApi::Application.routes.draw do
   get 'crimes/:field/:value/sixmonth/:field2/:value2' => 'crimes#by_filter_sixmonth_filter'
 
   # this spits out ugly hash { date => # of crime incidents on that date }
-  get 'crimes/:field/:value/total-incidents' => 'crimes#by_filter_crimecount'
+  get 'crimes/:field/:value/violent' => 'crimes#by_filter_countviolent'
 
   #zones subview
   get 'zones/' => 'zones#all_zones'

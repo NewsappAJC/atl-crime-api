@@ -8,6 +8,7 @@ gem 'mysql2'
 gem 'zipruby', '~> 0.3.6'
 # gem 'paperclip'
 gem 'aws-sdk'
+gem 'nokogiri', '~> 1.6.5'
 
 
 

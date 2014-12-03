@@ -63,8 +63,8 @@ class CrimesController < ApplicationController
   end
 
 # this spits out ugly hash { date => # of crime incidents on that date }
-  def by_filter_crimecount
-    @crimes = Crime.by_filter(params[:field],params[:value]).group('date(occur_date)').count(:crime)
+  def by_filter_countviolent
+    @crimes = Crime.by_filter(params[:field],params[:value]).violent_crimes
     render json: @crimes, callback: params[:callback]
   end
 

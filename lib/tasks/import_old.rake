@@ -1,39 +1,10 @@
-require 'rubygems'
-require 'net/http'
-require 'zipruby'
-require 'nokogiri'
-require 'open-uri'
 require 'csv'
 require 'date'
- 
-task :import do |t|
 
-	base = 'http://www.atlantapd.org/'
+desc "Imports comma delimited text file into an ActiveRecord table"
+task :import_old, [:filename] => :environment do    
 
-	page = Nokogiri::HTML(open(base+'crimedatadownloads.aspx'))
-  	downloads = page.css('tr')
-
-
-  	for d in downloads
-   		td = d.css('td')
-   		if td.text.include? "Raw Data"
-   			newZip = td.css('a')[0]['href']
-   		end
-  	end
-
-  	uri = URI(base+newZip)
-  	data = Net::HTTP.get(uri)
- 
-  	Zip::Archive.open_buffer(data) do |z|
-    	z.fopen(z.get_name(0)) do |e|
-      		File.open('tmp/data.txt', 'w:ASCII-8BIT') do |f|
-       			f.write e.read
-      		end
-    	end
-  	end
-
-
-  	crime_data = CSV.read("tmp/data.txt", quote_char: "\x00", :headers => true, :header_converters => lambda { |h| h.gsub(' ', '_') }, :skip_blanks => true)
+	crime_data = CSV.read("tmp/data.txt", quote_char: "\x00", :headers => true, :header_converters => lambda { |h| h.gsub(' ', '_') }, :skip_blanks => true)
 
 	line = crime_data.length-1
 
@@ -89,5 +60,4 @@ task :import do |t|
 	    end
 
     end
-
 end
