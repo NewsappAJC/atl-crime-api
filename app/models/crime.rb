@@ -43,9 +43,6 @@ class Crime < ActiveRecord::Base
     self.by_month(year, month)
   end
 
-  def self.makeDate(date)
-    date.strftime("%B %Y")
-  end
 
   def self.crime_count
     crime = count(:group => "date(occur_date)").to_a
