@@ -35,8 +35,7 @@ class Crime < ActiveRecord::Base
   scope :by_zone, lambda { |zone| where('zone = ?', zone) }
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
-
-
+ 
   def self.by_month
     now = Date.new
     month = now.month
@@ -44,11 +43,26 @@ class Crime < ActiveRecord::Base
     self.by_month(year, month)
   end
 
+  def self.makeDate(date)
+    date.strftime("%B %Y")
+  end
 
-  def self.violent_crimes
+  def self.crime_count
+    crime = count(:group => "date(occur_date)").to_a
+    return crime.map { |date| {:date => date[0], :count => date[1] }  }
+  end
 
-    { violent: where(violent: 1).count(group: :occur_date).to_a  ,
-     nonviolent: where(violent: 0).count(group: :occur_date).to_a  }
+  def self.violent_count
+    violent = where(violent: 1).count(:group => "date(occur_date)").to_a
+    nonviolent = where(violent: 0).count(:group => "date(occur_date)").to_a
+    return { violent: violent.map { |date| {:date => date[0], :count => date[1] }  }, nonviolent: nonviolent.map { |date| {:date => date[0], :count => date[1] }  } }
+  end
+
+  def self.shift_count
+    morn = where(shift: 'morn').count(:group => "date(occur_date)").to_a
+    day = where(shift: 'day').count(:group => "date(occur_date)").to_a
+    eve = where(shift: 'eve').count(:group => "date(occur_date)").to_a
+    return { morning: morn.map { |date| {:date => date[0], :count => date[1] }  }, day: day.map { |date| {:date => date[0], :count => date[1] }  }, evening: eve.map { |date| {:date => date[0], :count => date[1] }  } }
   end
 
 
