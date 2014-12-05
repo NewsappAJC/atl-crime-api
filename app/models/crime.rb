@@ -45,8 +45,8 @@ class Crime < ActiveRecord::Base
 
 
   def self.crime_count
-    crime = count(:group => "date(occur_date)").to_a
-    return crime.map { |date| {:date => date[0], :count => date[1] }  }
+    crime = group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
+    return crime.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] }  }
   end
 
   def self.violent_count
