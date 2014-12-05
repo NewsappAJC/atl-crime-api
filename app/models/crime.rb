@@ -50,16 +50,16 @@ class Crime < ActiveRecord::Base
   end
 
   def self.violent_count
-    violent = where(violent: 1).count(:group => "date(occur_date)").to_a
-    nonviolent = where(violent: 0).count(:group => "date(occur_date)").to_a
-    return { violent: violent.map { |date| {:date => date[0], :count => date[1] }  }, nonviolent: nonviolent.map { |date| {:date => date[0], :count => date[1] }  } }
+    v = where(violent: "violent").group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
+    nv = where(violent: "nonviolent").group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
+    return { violent: v.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] } } , nonviolent: nv.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] }  } }
   end
 
   def self.shift_count
-    morn = where(shift: 'morn').count(:group => "date(occur_date)").to_a
-    day = where(shift: 'day').count(:group => "date(occur_date)").to_a
-    eve = where(shift: 'eve').count(:group => "date(occur_date)").to_a
-    return { morning: morn.map { |date| {:date => date[0], :count => date[1] }  }, day: day.map { |date| {:date => date[0], :count => date[1] }  }, evening: eve.map { |date| {:date => date[0], :count => date[1] }  } }
+    morn = where(shift: "morn").group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
+    day = where(shift: "day").group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
+    eve = where(shift: "eve").group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
+    return { morning: morn.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] } } , day: day.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] } } , evening: eve.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] } } }
   end
 
 

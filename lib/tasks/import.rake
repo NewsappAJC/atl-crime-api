@@ -6,7 +6,7 @@ require 'open-uri'
 require 'csv'
 require 'date'
  
-task :import do |t|
+task :import => :environment do    
 
 	base = 'http://www.atlantapd.org/'
 
@@ -41,6 +41,8 @@ task :import do |t|
 
     crime_data.each do |row|
 
+    	mi_prinx = row[0]
+
     	if row[2] != nil
 			row[2] = row[2].strip
 		end
@@ -70,6 +72,7 @@ task :import do |t|
 		obj = row.to_hash
 		occured = obj['occur_date']
 		zone = obj['beat']
+		obj['MI_PRINX'] = mi_prinx
 		obj['occur_date'] = Date.strptime(occured, '%m/%d/%Y')
 		obj['zone'] = zone[0]
 		obj['crime'] = obj['UC2_Literal']
@@ -82,7 +85,7 @@ task :import do |t|
 			obj['violent'] = 'nonviolent'
 		end
 
-		puts occured
+
 	    newCrime = Crime.new(obj)
 	    if newCrime.valid?
 	    	newCrime.save	

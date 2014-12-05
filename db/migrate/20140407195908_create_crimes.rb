@@ -1,6 +1,7 @@
 class CreateCrimes < ActiveRecord::Migration
   def change
     create_table :crimes do |t|
+      t.string :MI_PRINX
       t.integer :offense_id
       t.string :rpt_date
       t.datetime :occur_date

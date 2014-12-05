@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20140407195908) do
 
   create_table "crimes", force: true do |t|
+    t.string   "MI_PRINX"
     t.integer  "offense_id"
     t.string   "rpt_date"
     t.datetime "occur_date"
