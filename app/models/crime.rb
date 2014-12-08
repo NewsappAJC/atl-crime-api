@@ -35,6 +35,7 @@ class Crime < ActiveRecord::Base
   scope :by_zone, lambda { |zone| where('zone = ?', zone) }
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
+  ( "text_value <> ''" )
  
   def self.by_month
     now = Date.new
@@ -60,6 +61,20 @@ class Crime < ActiveRecord::Base
     day = where(shift: "day").group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
     eve = where(shift: "eve").group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
     return { morning: morn.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] } } , day: day.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] } } , evening: eve.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] } } }
+  end
+
+  def self.time_of_day
+    t = count(group: "HOUR(occur_time)").to_a
+    return t.map{ |hour| { :hour => hour[0] , :count => hour[1] } }
+  end
+
+  def self.count_zones
+    z = where.not(:zone => ['', 0, 9]).group(:zone)
+    x = z.map{ |zone| { zone: zone['zone'], count: zone } }
+   # z = where.not(:zone => ['', 0, 9]).group(:zone).inject.group(["YEAR(occur_date)","MONTH(occur_date)"]).count.to_a
+   # z = z.map { |zone| { zone: zone[0][0], month: zone[0][2].to_s+'/'+zone[0][1].to_s, count: zone[1] } }
+   # output = z.uniq{|x| x['zone'] }
+    return z
   end
 
 

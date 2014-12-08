@@ -79,6 +79,16 @@ class CrimesController < ApplicationController
     render json: @crimes, callback: params[:callback]
   end
 
+  def by_filter_time
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).by_filter(params[:field],params[:value]).time_of_day
+    render json: @crimes, callback: params[:callback]
+  end
+
+  def by_zones
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).count_zones
+    render json: @crimes, callback: params[:callback]
+  end
+
 
   # GET /crimes/1
   # GET /crimes/1.json
