@@ -1,0 +1,2 @@
+class ZoneCountController < ApplicationController
+end

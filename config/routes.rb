@@ -6,17 +6,21 @@ ApdApi::Application.routes.draw do
   get 'crimes/recent' => 'crimes#most_recent'
   # get 'crimes/:id' => 'crimes#show'
   get 'crimes/:field/:value' => 'crimes#by_filter'
-  get 'crimes/:field/:value/twomonth' => 'crimes#by_filter_twomonth'
-  get 'crimes/:field/:value/sixmonth' => 'crimes#by_filter_sixmonth'
-  get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
-  get 'crimes/:field/:value/twomonth/:field2/:value2' => 'crimes#by_filter_twomonth_filter'
-  get 'crimes/:field/:value/sixmonth/:field2/:value2' => 'crimes#by_filter_sixmonth_filter'
+  #get 'crimes/:field/:value/twomonth' => 'crimes#by_filter_twomonth'
+  #get 'crimes/:field/:value/sixmonth' => 'crimes#by_filter_sixmonth'
+  #get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
+  #get 'crimes/:field/:value/twomonth/:field2/:value2' => 'crimes#by_filter_twomonth_filter'
+  #get 'crimes/:field/:value/sixmonth/:field2/:value2' => 'crimes#by_filter_sixmonth_filter'
 
-  # this spits out ugly hash { date => # of crime incidents on that date }
+  # time range
+  get 'crimes/:field/:value/:timeperiod/:timeval' => 'crimes#by_filter_timerange'
+
+  # counts # of crimes by date grouped by attribute
   get 'crimes/:field/:value/count' => 'crimes#by_filter_countall'
   get 'crimes/:field/:value/violent' => 'crimes#by_filter_countviolent'
   get 'crimes/:field/:value/shift' => 'crimes#by_filter_countshift'
   get 'crimes/:field/:value/time' => 'crimes#by_filter_time'
+
 
   # crimes grouped by zone, counted by month within
   # get 'crimes/by_zones' => 'crimes#by_zones'
@@ -24,6 +28,11 @@ ApdApi::Application.routes.draw do
   #zones subview
   get 'zones/' => 'zones#all_zones'
   get 'zone/:zone' => 'beats#list_beats'
+
+  get 'zones/test' => 'zone_counts#all_zones'
+
+  get 'neighborhoods/zone' => 'neighborhood#zone_hoods'
+  get 'neighborhoods/beat' => 'neighborhood#beat_hoods'
 
   # resources :crimes, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.

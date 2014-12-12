@@ -9,6 +9,7 @@ gem 'zipruby', '~> 0.3.6'
 # gem 'paperclip'
 gem 'aws-sdk'
 gem 'nokogiri', '~> 1.6.5'
+gem 'active_model_serializers'
 
 
 

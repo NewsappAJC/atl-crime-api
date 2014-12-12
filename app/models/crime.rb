@@ -34,14 +34,27 @@ class Crime < ActiveRecord::Base
   scope :by_crime, lambda { |crime| where('crime = ?', crime) }
   scope :by_zone, lambda { |zone| where('zone = ?', zone) }
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
-  scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
-  ( "text_value <> ''" )
+  #scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
+
  
   def self.by_month
     now = Date.new
     month = now.month
     year = now.year
     self.by_month(year, month)
+  end
+
+  def self.time_range(timeval,timeperiod)
+    t = timeval.to_i
+    end_date = select(:occur_date).find(:first, :order => "occur_date DESC").occur_date
+    if timeperiod === 'month'
+      start_date = end_date - t.month
+    end
+    if timeperiod === 'year'
+      start_date = end_date - t.year
+    end
+    d = where("occur_date >= ? AND occur_date <= ?", start_date, end_date )
+    return d
   end
 
 
