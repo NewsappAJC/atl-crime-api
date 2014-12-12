@@ -34,7 +34,7 @@ class Crime < ActiveRecord::Base
   scope :by_crime, lambda { |crime| where('crime = ?', crime) }
   scope :by_zone, lambda { |zone| where('zone = ?', zone) }
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
-  #scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
+  scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
 
  
   def self.by_month
