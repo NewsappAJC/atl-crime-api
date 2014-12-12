@@ -45,17 +45,6 @@ ActiveRecord::Schema.define(version: 20141210232117) do
     t.string "neighborhood"
   end
 
-  create_table "totals", id: false, force: true do |t|
-    t.integer "YEAR(occur_date)"
-    t.integer "MONTH(occur_date)"
-    t.integer "date_count",        limit: 8, default: 0, null: false
-  end
-
-  create_table "zone_counts", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "zones", id: false, force: true do |t|
     t.string "zone"
   end
