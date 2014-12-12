@@ -46,7 +46,7 @@ class Crime < ActiveRecord::Base
 
   def self.time_range(timeval,timeperiod)
     t = timeval.to_i
-    end_date = select(:occur_date).find(:first, :order => "occur_date DESC").occur_date
+    end_date = select(:occur_date).order("occur_date DESC").first.occur_date
     if timeperiod === 'month'
       start_date = end_date - t.month
     end
