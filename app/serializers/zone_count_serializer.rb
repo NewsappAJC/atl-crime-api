@@ -4,11 +4,11 @@ class ZoneCountSerializer < ActiveModel::Serializer
 	  			:crimes
 
 
-  	def crimes
-  		{
-  			date: object.occur_date
-  			count: where(zone: object.zone).group("YEAR(object.occur_date)").group("MONTH(object.occur_date)").count
-  		}
-  	end
+  	# def crimes
+  	# 	{
+  	# 		date: object.occur_date
+  	# 		count: where(zone: object.zone).group("YEAR(object.occur_date)").group("MONTH(object.occur_date)").count
+  	# 	}
+  	# end
 
 end
