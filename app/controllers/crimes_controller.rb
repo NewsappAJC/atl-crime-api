@@ -47,6 +47,11 @@ class CrimesController < ApplicationController
     render json: @crimes, callback: params[:callback]
   end
 
+  def by_timerange
+    @crimes = Crime.time_range(params[:timeval],params[:timeperiod])
+    render json: @crimes, callback: params[:callback]
+  end
+
   # def by_filter_year
   #   @crimes = Crime.by_filter(params[:field],params[:value]).time_year(params[:timeval])
   #   render json: @crimes, callback: params[:callback]

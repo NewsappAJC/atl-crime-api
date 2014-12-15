@@ -13,6 +13,7 @@ ApdApi::Application.routes.draw do
   #get 'crimes/:field/:value/sixmonth/:field2/:value2' => 'crimes#by_filter_sixmonth_filter'
 
   # time range
+  get 'crimes/:timeperiod/:timeval' => 'crimes#by_timerange'
   get 'crimes/:field/:value/:timeperiod/:timeval' => 'crimes#by_filter_timerange'
 
   # counts # of crimes by date grouped by attribute
