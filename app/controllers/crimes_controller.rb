@@ -126,6 +126,22 @@ class CrimesController < ApplicationController
   end
 
 
+  def top_violent
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).mostviolent(params[:group])
+    render json: @crimes, callback: params[:callback]
+  end
+
+  def top_nonviolent
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).mostnonviolent(params[:group])
+    render json: @crimes, callback: params[:callback]
+  end
+
+  def top_list
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).mostcrime(params[:group])
+    render json: @crimes, callback: params[:callback]
+  end
+
+
   # GET /crimes/1
   # GET /crimes/1.json
   def show

@@ -57,6 +57,39 @@ class Crime < ActiveRecord::Base
     return d
   end
 
+  def self.mostcrime(group)
+    if group==='zone'
+      top = group("zone").count.to_a
+      return top.map { |t| { :zone =>t[0], :count => t[1] } }
+    end
+    if group==='beat'
+      top = group("beat").count.to_a
+      return top.map { |t| { :beat =>t[0], :count => t[1] } }
+    end
+  end
+
+  def self.mostviolent(group)
+    if group==='zone'
+      top = where(violent: "violent").group("zone").count.to_a
+      return top.map { |t| { :zone =>t[0], :count => t[1] } }
+    end
+    if group==='beat'
+      top = where(violent: "violent").group("beat").count.to_a
+      return top.map { |t| { :beat =>t[0], :count => t[1] } }
+    end
+  end
+
+  def self.mostnonviolent(group)
+    if group==='zone'
+      top = where(violent: "nonviolent").group("zone").count.to_a
+      return top.map { |t| { :zone =>t[0], :count => t[1] } }
+    end
+    if group==='beat'
+      top = where(violent: "nonviolent").group("beat").count.to_a
+      return top.map { |t| { :beat =>t[0], :count => t[1] } }
+    end
+  end
+
 
   def self.crime_count
     crime = group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a

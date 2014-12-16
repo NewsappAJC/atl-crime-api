@@ -5,7 +5,7 @@ ApdApi::Application.routes.draw do
   get 'crimes/day/:year/:month/:day' => 'crimes#by_day'
   get 'crimes/recent' => 'crimes#most_recent'
   # get 'crimes/:id' => 'crimes#show'
-  get 'crimes/:field/:value' => 'crimes#by_filter'
+  get 'crimes/filter/:field/:value' => 'crimes#by_filter'
   #get 'crimes/:field/:value/twomonth' => 'crimes#by_filter_twomonth'
   #get 'crimes/:field/:value/sixmonth' => 'crimes#by_filter_sixmonth'
   #get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
@@ -16,16 +16,20 @@ ApdApi::Application.routes.draw do
   get 'crimes/all/:timeperiod/:timeval' => 'crimes#by_timerange'
   get 'crimes/count-zone/:timeperiod/:timeval' => 'crimes#count_zone'
   get 'crimes/count-beat/:timeperiod/:timeval' => 'crimes#count_beat'
-  get 'crimes/:field/:value/:timeperiod/:timeval' => 'crimes#by_filter_timerange'
+  get 'crimes/filter/:field/:value/:timeperiod/:timeval' => 'crimes#by_filter_timerange'
 
   # counts # of crimes by date grouped by attribute
   get 'crimes/count' => 'crimes#countall'
   get 'crimes/violent' => 'crimes#countviolent'
   get 'crimes/time' => 'crimes#counttime'
-  get 'crimes/:field/:value/count' => 'crimes#by_filter_countall'
-  get 'crimes/:field/:value/violent' => 'crimes#by_filter_countviolent'
+  get 'crimes/filter/:field/:value/count' => 'crimes#by_filter_countall'
+  get 'crimes/filter/:field/:value/violent' => 'crimes#by_filter_countviolent'
   #get 'crimes/:field/:value/shift' => 'crimes#by_filter_countshift'
-  get 'crimes/:field/:value/time' => 'crimes#by_filter_time'
+  get 'crimes/filter/:field/:value/time' => 'crimes#by_filter_time'
+
+  get 'crimes/top/:group/violent' => 'crimes#top_violent'
+  get 'crimes/top/:group/nonviolent' => 'crimes#top_nonviolent'
+  get 'crimes/top/:group' => 'crimes#top_list'
 
 
   # crimes grouped by zone, counted by month within
