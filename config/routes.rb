@@ -19,9 +19,12 @@ ApdApi::Application.routes.draw do
   get 'crimes/:field/:value/:timeperiod/:timeval' => 'crimes#by_filter_timerange'
 
   # counts # of crimes by date grouped by attribute
+  get 'crimes/count' => 'crimes#countall'
+  get 'crimes/violent' => 'crimes#countviolent'
+  get 'crimes/time' => 'crimes#counttime'
   get 'crimes/:field/:value/count' => 'crimes#by_filter_countall'
   get 'crimes/:field/:value/violent' => 'crimes#by_filter_countviolent'
-  get 'crimes/:field/:value/shift' => 'crimes#by_filter_countshift'
+  #get 'crimes/:field/:value/shift' => 'crimes#by_filter_countshift'
   get 'crimes/:field/:value/time' => 'crimes#by_filter_time'
 
 

@@ -83,6 +83,22 @@ class CrimesController < ApplicationController
   # end
 
 # this spits out ugly hash { date => # of crime incidents on that date }
+  
+  def countall
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).crime_count
+    render json: @crimes, callback: params[:callback]
+  end
+
+  def countviolent
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).violent_count
+    render json: @crimes, callback: params[:callback]
+  end
+
+  def counttime
+    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).time_of_day
+    render json: @crimes, callback: params[:callback]
+  end
+
 
   def by_filter_countall
     @crimes = Crime.created_between("1/1/2009".to_date,Time.now).by_filter(params[:field],params[:value]).crime_count
