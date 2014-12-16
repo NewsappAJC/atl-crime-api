@@ -14,6 +14,8 @@ ApdApi::Application.routes.draw do
 
   # time range
   get 'crimes/all/:timeperiod/:timeval' => 'crimes#by_timerange'
+  get 'crimes/count-zone/:timeperiod/:timeval' => 'crimes#count_zone'
+  get 'crimes/count-beat/:timeperiod/:timeval' => 'crimes#count_beat'
   get 'crimes/:field/:value/:timeperiod/:timeval' => 'crimes#by_filter_timerange'
 
   # counts # of crimes by date grouped by attribute
