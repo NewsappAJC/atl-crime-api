@@ -24,6 +24,7 @@
 class Crime < ActiveRecord::Base
 
   validates_uniqueness_of :offense_id
+  belongs_to :zone
 
   scope :by_month, -> (year, month) { where("month(occur_date) = #{month} and year(occur_date) = #{year}")}
   scope :by_day, -> (year, month, day) { where("month(occur_date) = #{month} and year(occur_date) = #{year} and day(occur_date) = #{day}")}
@@ -93,7 +94,8 @@ class Crime < ActiveRecord::Base
 
   def self.crime_count
     crime = group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
-    return crime.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] }  }
+    pop = Beat.where(beat: obj.beat).find(:population)
+    return crime.map { |date,index| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => pop }  }
   end
 
   def self.violent_count

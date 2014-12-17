@@ -8,7 +8,4 @@ class ZonesController < ApplicationController
   	render json: @zones, callback: params[:callback]
   end
 
-
-
-
 end
