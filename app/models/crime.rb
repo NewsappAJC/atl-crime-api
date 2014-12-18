@@ -24,6 +24,10 @@
 class Crime < ActiveRecord::Base
 
   validates_uniqueness_of :offense_id
+  belongs_to :zone
+  belongs_to :beat
+
+
 
   scope :by_month, -> (year, month) { where("month(occur_date) = #{month} and year(occur_date) = #{year}")}
   scope :by_day, -> (year, month, day) { where("month(occur_date) = #{month} and year(occur_date) = #{year} and day(occur_date) = #{day}")}
@@ -47,6 +51,12 @@ class Crime < ActiveRecord::Base
   def self.time_range(timeval,timeperiod)
     t = timeval.to_i
     end_date = select(:occur_date).order("occur_date DESC").first.occur_date
+    if timeperiod === 'week'
+      start_date = end_date - t.week
+    end
+    if timeperiod === 'year'
+      start_date = end_date - t.year
+    end
     if timeperiod === 'month'
       start_date = end_date - t.month
     end
