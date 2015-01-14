@@ -46,7 +46,7 @@ task :csv => :environment do
 	
 	options = {:quote_char => "\x00", :verbose => true, :chunk_size => 1, :convert_values_to_numeric => false, :downcase_header => false, :header_converters => lambda { |h| h.gsub(' ', '_') }, :key_mapping => { :unwanted_row => nil, :old_row_name => :new_name }}
 
-	max = Crime.maximum(:crime_id).to_f
+	max = Crime.maximum(:offense_id).to_f
 	
 	n = SmarterCSV.process(filename, options) do |array|
 
@@ -90,14 +90,13 @@ task :csv => :environment do
 
 		
 
-		if newObj[:crime_id].to_f > max
+		if newObj[:offense_id].to_f > max
 
-	    	# newCrime = Crime.new(newObj)
-		    # if newCrime.valid?
-		    # 	newCrime.save	
-		    # end
-		    puts newObj[:crime_id].to_f
-			puts max
+	    	newCrime = Crime.new(newObj)
+		    if newCrime.valid?
+		    	newCrime.save	
+		    end
+
 		    puts newObj[:occur_date]
 	    end
 
