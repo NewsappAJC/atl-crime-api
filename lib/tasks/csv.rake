@@ -88,16 +88,18 @@ task :csv => :environment do
 			newObj[:violent] = 'nonviolent'
 		end
 
+		puts newObj[:crime_id]
+		puts max
 
-		if newObj[:crime_id].to_f > max
+		#if newObj[:crime_id].to_f > max
 
 	    	# newCrime = Crime.new(newObj)
 		    # if newCrime.valid?
 		    # 	newCrime.save	
 		    # end
 
-		    puts newObj[:occur_date]
-	    end
+		    #puts newObj[:occur_date]
+	    #end
 
 
 	end
