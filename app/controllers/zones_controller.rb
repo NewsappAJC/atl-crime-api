@@ -3,6 +3,11 @@ class ZonesController < ApplicationController
   # GET /crimes
   # GET /crimes.json
 
+  def zone_test
+    @zones = Zone.all
+    render json: @zones, serializer: ZoneSerializer, callback: params[:callback]
+  end
+
   def all_zones
   	@zones = Zone.all_zones
   	render json: @zones, callback: params[:callback]

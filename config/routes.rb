@@ -37,9 +37,10 @@ ApdApi::Application.routes.draw do
 
   #zones subview
   get 'zones/' => 'zones#all_zones'
-  get 'zone/:zone' => 'beats#list_beats'
+  #get 'zone/:zone' => 'beats#list_beats'
+  get 'zone/:zone' => 'zones#zone_crimes'
 
-  get 'zones/test' => 'zone_counts#all_zones'
+  get 'zones/test/:zone' => 'zones#zone_test'
 
   get 'neighborhoods/zone' => 'neighborhood#zone_hoods'
   get 'neighborhoods/beat' => 'neighborhood#beat_hoods'

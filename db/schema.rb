@@ -11,26 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210232117) do
+ActiveRecord::Schema.define(version: 20150113170231) do
 
   create_table "beats", id: false, force: true do |t|
+    t.string "beat"
+    t.string "zone"
+    t.string "population", limit: 63
+  end
+
+  create_table "beats_list", id: false, force: true do |t|
     t.string "zone"
     t.string "beat"
   end
 
   create_table "crimes", force: true do |t|
-    t.string   "MI_PRINX"
+    t.string   "crime_id"
     t.integer  "offense_id"
     t.string   "rpt_date"
     t.datetime "occur_date"
     t.string   "occur_time"
-    t.string   "poss_date"
-    t.string   "poss_time"
     t.string   "beat"
     t.string   "location"
     t.string   "MaxOfnum_victims"
     t.string   "Shift"
-    t.string   "UC2_Literal"
     t.string   "neighborhood"
     t.string   "x"
     t.string   "y"
@@ -45,7 +48,22 @@ ActiveRecord::Schema.define(version: 20141210232117) do
     t.string "neighborhood"
   end
 
+  create_table "pop", id: false, force: true do |t|
+    t.string "Beat",       limit: 63
+    t.string "Population", limit: 63
+  end
+
+  create_table "zone_pop", id: false, force: true do |t|
+    t.string "Zone",       limit: 63
+    t.string "Population", limit: 63
+  end
+
   create_table "zones", id: false, force: true do |t|
+    t.string "zone"
+    t.string "population", limit: 63
+  end
+
+  create_table "zones_list", id: false, force: true do |t|
     t.string "zone"
   end
 

@@ -23,9 +23,9 @@
 
 class Crime < ActiveRecord::Base
 
-  validates_uniqueness_of :offense_id
+  validates_uniqueness_of :crime_id, :presence => true
   #belongs_to :zone
-  #belongs_to :beat
+  # belongs_to :beat
 
 
 
@@ -40,7 +40,7 @@ class Crime < ActiveRecord::Base
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
 
- 
+
   def self.by_month
     now = Date.new
     month = now.month
