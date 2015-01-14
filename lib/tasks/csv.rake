@@ -96,7 +96,7 @@ task :csv => :environment do
 		    # 	newCrime.save	
 		    # end
 
-		    puts newCrime[:occur_date]
+		    puts newObj[:occur_date]
 	    end
 
 
