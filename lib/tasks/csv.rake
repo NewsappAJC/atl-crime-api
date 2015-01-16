@@ -20,6 +20,7 @@ task :csv => :environment do
    		td = d.css('td')
    		if td.text.include? "Raw Data"
    			newZip = td.css('a')[0]['href']
+   			puts base+newZip
    		end
   	end
 
