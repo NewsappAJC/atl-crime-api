@@ -54,8 +54,8 @@ class Crime < ActiveRecord::Base
     if timeperiod === 'week'
       start_date = end_date - t.week
     end
-    if timeperiod === 'year'
-      start_date = end_date - t.year
+    if timeperiod === 'day'
+      start_date = end_date - t.day
     end
     if timeperiod === 'month'
       start_date = end_date - t.month
