@@ -43,22 +43,22 @@ class CrimesController < ApplicationController
   # end
 
   def by_filter_timerange
-    @crimes = Crime.by_filter(params[:field],params[:value]).time_range(params[:timeval],params[:timeperiod])
+    @crimes = Crime.by_filter(params[:field],params[:value]).order('occur_date DESC').time_range(params[:timeval],params[:timeperiod])
     render json: @crimes, callback: params[:callback]
   end
 
   def by_timerange
-    @crimes = Crime.time_range(params[:timeval],params[:timeperiod])
+    @crimes = Crime.order('occur_date DESC').time_range(params[:timeval],params[:timeperiod])
     render json: @crimes, callback: params[:callback]
   end
 
   def count_zone
-    @crimes = Crime.time_range(params[:timeval],params[:timeperiod]).count(group: :zone)
+    @crimes = Crime.order('occur_date DESC').time_range(params[:timeval],params[:timeperiod]).count(group: :zone)
     render json: @crimes, callback: params[:callback]
   end
 
   def count_beat
-    @crimes = Crime.time_range(params[:timeval],params[:timeperiod]).count(group: :beat)
+    @crimes = Crime.order('occur_date DESC').time_range(params[:timeval],params[:timeperiod]).count(group: :beat)
     render json: @crimes, callback: params[:callback]
   end
 
@@ -85,12 +85,12 @@ class CrimesController < ApplicationController
 # this spits out ugly hash { date => # of crime incidents on that date }
   
   def countall
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).crime_count
+    @crimes = Crime.order('occur_date DESC').created_between("1/1/2009".to_date,Time.now).crime_count
     render json: @crimes, callback: params[:callback]
   end
 
   def countviolent
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).violent_count
+    @crimes = Crime.order('occur_date DESC').created_between("1/1/2009".to_date,Time.now).violent_count
     render json: @crimes, callback: params[:callback]
   end
 
