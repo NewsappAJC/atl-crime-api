@@ -85,59 +85,64 @@ class CrimesController < ApplicationController
 # this spits out ugly hash { date => # of crime incidents on that date }
   
   def countall
-    @crimes = Crime.order('occur_date DESC').created_between("1/1/2009".to_date,Time.now).crime_count
+    @crimes = Crime.order('occur_date DESC').created_between_count("1/1/2009".to_date).crime_count
     render json: @crimes, callback: params[:callback]
   end
 
   def countviolent
-    @crimes = Crime.order('occur_date DESC').created_between("1/1/2009".to_date,Time.now).violent_count
+    @crimes = Crime.order('occur_date DESC').created_between_count("1/1/2009".to_date).violent_count
     render json: @crimes, callback: params[:callback]
   end
 
   def counttime
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).time_of_day
+    @crimes = Crime.created_between_count("1/1/2009".to_date).time_of_day
+    render json: @crimes, callback: params[:callback]
+  end
+
+  def lastdate
+    @crimes = Crime.order('occur_date DESC').time_range('0','day').first
     render json: @crimes, callback: params[:callback]
   end
 
 
   def by_filter_countall
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).by_filter(params[:field],params[:value]).crime_count
+    @crimes = Crime.created_between_count("1/1/2009".to_date).by_filter(params[:field],params[:value]).crime_count
     render json: @crimes, callback: params[:callback]
   end
   
   def by_filter_countviolent
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).by_filter(params[:field],params[:value]).violent_count
+    @crimes = Crime.created_between_count("1/1/2009".to_date).by_filter(params[:field],params[:value]).violent_count
     render json: @crimes, callback: params[:callback]
   end
 
   def by_filter_countshift
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).by_filter(params[:field],params[:value]).shift_count
+    @crimes = Crime.created_between_count("1/1/2009".to_date).by_filter(params[:field],params[:value]).shift_count
     render json: @crimes, callback: params[:callback]
   end
 
   def by_filter_time
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).by_filter(params[:field],params[:value]).time_of_day
+    @crimes = Crime.created_between_count("1/1/2009".to_date).by_filter(params[:field],params[:value]).time_of_day
     render json: @crimes, callback: params[:callback]
   end
 
   def by_zones
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).count_zones
+    @crimes = Crime.created_between_count("1/1/2009".to_date).count_zones
     render json: @crimes, callback: params[:callback]
   end
 
 
   def top_violent
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).mostviolent(params[:group])
+    @crimes = Crime.created_between_count("1/1/2009".to_date).mostviolent(params[:group])
     render json: @crimes, callback: params[:callback]
   end
 
   def top_nonviolent
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).mostnonviolent(params[:group])
+    @crimes = Crime.created_between_count("1/1/2009".to_date).mostnonviolent(params[:group])
     render json: @crimes, callback: params[:callback]
   end
 
   def top_list
-    @crimes = Crime.created_between("1/1/2009".to_date,Time.now).mostcrime(params[:group])
+    @crimes = Crime.created_between_count("1/1/2009".to_date).mostcrime(params[:group])
     render json: @crimes, callback: params[:callback]
   end
 
