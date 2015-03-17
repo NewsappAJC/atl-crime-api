@@ -19,7 +19,7 @@ ApdApi::Application.routes.draw do
   get 'crimes/filter/:field/:value/:timeperiod/:timeval' => 'crimes#by_filter_timerange'
 
   # counts # of crimes by date grouped by attribute
-
+  get 'crimes/test-pop/:zone' => 'crimes#test'
   get 'crimes/lastdate' => 'crimes#lastdate'
 
   get 'crimes/count' => 'crimes#countall'
@@ -42,8 +42,9 @@ ApdApi::Application.routes.draw do
   get 'zones/' => 'zones#all_zones'
   #get 'zone/:zone' => 'beats#list_beats'
   get 'zone/:zone' => 'zones#zone_crimes'
+  get 'zone/' => 'zones#show_all_crimes'
 
-  get 'zones/test/:zone' => 'zones#zone_test'
+  get 'zones/test' => 'zones#zone_test'
 
   get 'neighborhoods/zone' => 'neighborhood#zone_hoods'
   get 'neighborhoods/beat' => 'neighborhood#beat_hoods'

@@ -24,8 +24,8 @@
 class Crime < ActiveRecord::Base
 
   validates_uniqueness_of :crime_id, :presence => true
-  #belongs_to :zone
-  # belongs_to :beat
+  belongs_to :zone
+  belongs_to :beat
 
 
 
@@ -36,9 +36,12 @@ class Crime < ActiveRecord::Base
   scope :by_beat, lambda { |beat| where('beat = ?', beat) }
   scope :by_shift, lambda { |shift| where('shift = ?', shift) }
   scope :by_crime, lambda { |crime| where('crime = ?', crime) }
-  scope :by_zone, lambda { |zone| where('zone = ?', zone) }
+  scope :by_zone, lambda { |zone| where('zone_id = ?', zone) }
   scope :by_filter, -> (field, value) { where("#{field} = ?", value) }
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
+
+
+
 
 
 
@@ -112,7 +115,6 @@ class Crime < ActiveRecord::Base
 
   def self.crime_count
     crime = group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
-    #pop = Beat.where(beat: obj.beat).find(:population)
     return crime.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1] }  }
   end
 
