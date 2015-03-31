@@ -1,8 +1,8 @@
 class Beat < ActiveRecord::Base
   
   self.primary_key = :beat # or other primary key
-  belongs_to :zone
-  has_many :crimes
+  has_many :crimes, :foreign_key => 'beat'
+  belongs_to :zone, :foreign_key => 'zone'
 
 
   scope :list_beats, lambda { |zone| where('zone = ?', zone) }

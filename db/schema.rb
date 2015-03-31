@@ -14,14 +14,14 @@
 ActiveRecord::Schema.define(version: 20150113170231) do
 
   create_table "beats", id: false, force: true do |t|
-    t.integer "zone_id"
-    t.integer "beat"
-    t.integer "population"
+    t.string "beat"
+    t.string "zone"
+    t.string "population", limit: 63
   end
 
-  create_table "beats_pop", id: false, force: true do |t|
-    t.string "beat",       limit: 63
-    t.string "population", limit: 63
+  create_table "beats_list", id: false, force: true do |t|
+    t.string "zone"
+    t.string "beat"
   end
 
   create_table "crimes", force: true do |t|
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150113170231) do
     t.string   "rpt_date"
     t.datetime "occur_date"
     t.string   "occur_time"
-    t.string   "beat_id"
+    t.string   "beat"
     t.string   "location"
     t.string   "MaxOfnum_victims"
     t.string   "Shift"
@@ -38,13 +38,33 @@ ActiveRecord::Schema.define(version: 20150113170231) do
     t.string   "x"
     t.string   "y"
     t.string   "crime"
-    t.string   "zone_id"
+    t.string   "zone"
     t.string   "violent"
   end
 
+  create_table "neighborhoods", id: false, force: true do |t|
+    t.string "zone"
+    t.string "beat"
+    t.string "neighborhood"
+  end
+
+  create_table "pop", id: false, force: true do |t|
+    t.string "Beat",       limit: 63
+    t.string "Population", limit: 63
+  end
+
+  create_table "zone_pop", id: false, force: true do |t|
+    t.string "Zone",       limit: 63
+    t.string "Population", limit: 63
+  end
+
   create_table "zones", id: false, force: true do |t|
-    t.string "zone",       limit: 63
+    t.string "zone"
     t.string "population", limit: 63
+  end
+
+  create_table "zones_list", id: false, force: true do |t|
+    t.string "zone"
   end
 
 end

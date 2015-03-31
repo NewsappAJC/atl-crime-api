@@ -8,11 +8,6 @@ class ZonesController < ApplicationController
   #   render json: @zones, serializer: ZoneSerializer, callback: params[:callback]
   # end
 
-  def zone_test
-    @zones = Zone.all.map{ |z| { zone: z.zone, population: z.population.to_f, crime_percap: z.population.to_f===0 ? 0 : z.crimes.length/z.population.to_f } }
-    render json: @zones, callback: params[:callback]
-  end
-
   def all_zones
   	@zones = Zone.all_zones
   	render json: @zones, callback: params[:callback]
