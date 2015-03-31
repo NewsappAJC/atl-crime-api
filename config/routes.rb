@@ -6,6 +6,11 @@ ApdApi::Application.routes.draw do
   get 'crimes/recent' => 'crimes#most_recent'
   # get 'crimes/:id' => 'crimes#show'
   get 'crimes/filter/:field/:value' => 'crimes#by_filter'
+  #get 'crimes/:field/:value/twomonth' => 'crimes#by_filter_twomonth'
+  #get 'crimes/:field/:value/sixmonth' => 'crimes#by_filter_sixmonth'
+  #get 'crimes/:field/:value/:field2/:value2' => 'crimes#by_filter_filter'
+  #get 'crimes/:field/:value/twomonth/:field2/:value2' => 'crimes#by_filter_twomonth_filter'
+  #get 'crimes/:field/:value/sixmonth/:field2/:value2' => 'crimes#by_filter_sixmonth_filter'
 
   # time range
   get 'crimes/all/:timeperiod/:timeval' => 'crimes#by_timerange'
@@ -30,24 +35,19 @@ ApdApi::Application.routes.draw do
   get 'crimes/top/:group' => 'crimes#top_list'
 
 
+  # crimes grouped by zone, counted by month within
+  # get 'crimes/by_zones' => 'crimes#by_zones'
 
   #zones subview
   get 'zones/' => 'zones#all_zones'
   #get 'zone/:zone' => 'beats#list_beats'
-  get 'zone/:zone' => 'zones#this_zone'
-  get 'zone/:zone/all' => 'zones#zone_crimes'
-  get 'zone/:zone/violent' => 'zones#zone_violent'
-  get 'zone/:zone/time' => 'zones#zone_hours'
-  get 'zone/:zone/map' => 'zones#zone_map'
-
-  get 'zone/:zone/filter' => 'zones#filter_zone'
-
-
+  get 'zone/:zone' => 'zones#zone_crimes'
   get 'zone/' => 'zones#show_all_crimes'
 
-  get 'beat/' => 'beats#beat_crime'
-  get 'beat/:beat' => 'beats#beat_crimes'
+  get 'zones/test' => 'zones#zone_test'
 
+  get 'neighborhoods/zone' => 'neighborhood#zone_hoods'
+  get 'neighborhoods/beat' => 'neighborhood#beat_hoods'
 
   # resources :crimes, except: [:new, :edit]
   # The priority is based upon order of creation: first created -> highest priority.

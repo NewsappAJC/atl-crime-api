@@ -44,16 +44,12 @@ task :csv => :environment do
 	  	out << outdata.chomp
 	end
 
-	_new = File.new("tmp/newdata.csv", "w")
-
-	open(filename, 'r').each { |l| _new << l.gsub(/\s{3}/,'') unless !l.chomp.include? ',' }
-
 	
 	options = {:quote_char => "\x00", :verbose => true, :chunk_size => 1, :convert_values_to_numeric => false, :downcase_header => false, :header_converters => lambda { |h| h.gsub(' ', '_') }, :key_mapping => { :unwanted_row => nil, :old_row_name => :new_name }}
 
 	max = Crime.maximum(:offense_id).to_f
 	
-	n = SmarterCSV.process("tmp/newdata.csv", options) do |array|
+	n = SmarterCSV.process(filename, options) do |array|
 
 
 	    obj = array.first
