@@ -53,4 +53,9 @@ class ZonesController < ApplicationController
     render json: @zones, callback: params[:callback]
   end
 
+  def beats
+    @zones = Zone.zone_beats(params[:zone])
+    render json: @zones, callback: params[:callback]
+  end
+
 end

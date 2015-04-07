@@ -37,6 +37,11 @@ class CrimesController < ApplicationController
     render json: @crimes, callback: params[:callback]
   end
 
+  def crime_filter
+    @crimes = Crime.created_between_count("1/1/2009".to_date).filter
+    render json: @crimes, callback: params[:callback]
+  end
+
   # def by_filter_filter
   #   @crimes = Crime.by_filter(params[:field],params[:value]).by_filter(params[:field2],params[:value2])
   #   render json: @crimes, callback: params[:callback]

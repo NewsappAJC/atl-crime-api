@@ -30,6 +30,7 @@ ApdApi::Application.routes.draw do
   get 'crimes/top/:group' => 'crimes#top_list'
 
 
+  get 'crimes/all' => 'crimes#crime_filter'
 
   #zones subview
   get 'zones/' => 'zones#all_zones'
@@ -39,6 +40,7 @@ ApdApi::Application.routes.draw do
   get 'zone/:zone/violent' => 'zones#zone_violent'
   get 'zone/:zone/time' => 'zones#zone_hours'
   get 'zone/:zone/map' => 'zones#zone_map'
+  get 'zone/:zone/beat-details' => 'zones#beats'
 
   get 'zone/:zone/filter' => 'zones#filter_zone'
 

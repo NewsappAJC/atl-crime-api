@@ -43,6 +43,13 @@ class Crime < ActiveRecord::Base
 
 
 
+  def self.filter
+    pop = 447841/100
+    crime = Crime.group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
+    return crime.map { |date| {:date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1]/pop.to_f }  }
+  end
+
+
 
 
   def self.created_between_count(start_date)
@@ -144,6 +151,9 @@ class Crime < ActiveRecord::Base
    # output = z.uniq{|x| x['zone'] }
     return z
   end
+
+
+  
 
 
 
