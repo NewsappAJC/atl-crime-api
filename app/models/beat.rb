@@ -41,6 +41,34 @@ class Beat < ActiveRecord::Base
 
   end
 
+  def self.map_crimes(beat)
+    b = find_by_beat(beat)
+    crimes_in_beat = b.crimes
+    return crimes_in_beat.time_range('1','month')
+  end
+
+  def self.filter(beat)
+    b = find_by_beat(beat)
+    violent = b.crime_list('violent','violent')
+    nonviolent = b.crime_list('violent','nonviolent')
+    t = b.crimes.group("HOUR(occur_time)").count.to_a
+    group_crimes = b.crimes
+        .created_between_count("1/1/2009".to_date)
+        .group("YEAR(occur_date)")
+        .group("MONTH(occur_date)")
+        .count.to_a
+
+    return {
+      all: group_crimes.map { |date| { :date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1]/(b.population.to_f/100) } },
+      violent_count: {
+        violent: violent.map { |date| { :date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1]/(b.population.to_f/100) } },
+        nonviolent: nonviolent.map { |date| { :date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1]/(b.population.to_f/100) } },
+      },
+      time: t.map{ |hour| { :hour => hour[0] , :count => hour[1]/(b.population.to_f/100) } }
+    }
+
+  end
+
   def crime_list(field,value)
     self.crimes
         .created_between("1/1/2009".to_date,Time.now)

@@ -36,12 +36,8 @@ ApdApi::Application.routes.draw do
   get 'zones/' => 'zones#all_zones'
   #get 'zone/:zone' => 'beats#list_beats'
   get 'zone/:zone' => 'zones#this_zone'
-  get 'zone/:zone/all' => 'zones#zone_crimes'
-  get 'zone/:zone/violent' => 'zones#zone_violent'
-  get 'zone/:zone/time' => 'zones#zone_hours'
   get 'zone/:zone/map' => 'zones#zone_map'
   get 'zone/:zone/beat-details' => 'zones#beats'
-
   get 'zone/:zone/filter' => 'zones#filter_zone'
 
 
@@ -49,6 +45,8 @@ ApdApi::Application.routes.draw do
 
   get 'beat/' => 'beats#beat_crime'
   get 'beat/:beat' => 'beats#beat_crimes'
+  get 'beat/:beat/map' => 'beats#beat_map'
+  get 'beat/:beat/filter' => 'beats#filter_beat'
 
 
   # resources :crimes, except: [:new, :edit]

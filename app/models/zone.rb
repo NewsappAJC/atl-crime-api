@@ -74,7 +74,6 @@ class Zone < ActiveRecord::Base
     z = find_by_zone(zone)
     violent = z.crime_list('violent','violent')
     nonviolent = z.crime_list('violent','nonviolent')
-    z = find_by_zone(zone)
     t = z.crimes.group("HOUR(occur_time)").count.to_a
     group_crimes = z.crimes
         .created_between_count("1/1/2009".to_date)
@@ -92,33 +91,6 @@ class Zone < ActiveRecord::Base
     }
 
   end
-
-  # def self.all_crime(zone)
-  #   z = find_by_zone(zone)
-  #   group_crimes = z.crimes
-  #       .created_between("1/1/2009".to_date,Time.now)
-  #       .group("YEAR(occur_date)")
-  #       .group("MONTH(occur_date)")
-  #       .count.to_a
-  #   return group_crimes.map { |date| { :date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1]/(z.population.to_f/100) } }
-  # end
-
-  # def self.violent_filter(zone)
-  #   z = find_by_zone(zone)
-  #   violent = z.crime_list('violent','violent')
-  #   nonviolent = z.crime_list('violent','nonviolent')
-  #   return {
-  #     violent: violent.map { |date| { :date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1]/(z.population.to_f/100) } },
-  #     nonviolent: nonviolent.map { |date| { :date => date[0][1].to_s+'/'+date[0][0].to_s, :count => date[1]/(z.population.to_f/100) } }
-  #   }
-  # end
-
-  # def self.hours_filter(zone)
-  #   z = find_by_zone(zone)
-  #   t = z.crimes.group("HOUR(occur_time)").count.to_a
-  #   return t.map{ |hour| { :hour => hour[0] , :count => hour[1]/(z.population.to_f/100) } }
-  # end
-
 
   def time_range(timeval,timeperiod)
     t = timeval.to_i
