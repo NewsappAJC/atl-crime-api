@@ -30,11 +30,15 @@ ApdApi::Application.routes.draw do
   get 'crimes/top/:group' => 'crimes#top_list'
 
 
-  get 'crimes/all' => 'crimes#crime_filter'
+  get 'crimes/all' => 'crimes#citywide_comp'
+
+
+  get '/' => 'crimes#count_city'
+  get '/filter' => 'crimes#filter_city'
+  get '/map' => 'crimes#map_city'
 
   #zones subview
   get 'zones/' => 'zones#all_zones'
-  #get 'zone/:zone' => 'beats#list_beats'
   get 'zone/:zone' => 'zones#this_zone'
   get 'zone/:zone/map' => 'zones#zone_map'
   get 'zone/:zone/beat-details' => 'zones#beats'
