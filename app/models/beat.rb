@@ -8,19 +8,18 @@ class Beat < ActiveRecord::Base
   scope :all_beats
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
 
-  def self.count_crimes
+  def self.beat_details
     _beats = find(:all)
 
     return _beats.map { |b| 
       {
         beat: b.beat,
         zone: b.zone_id,
-        population: find_by_beat(b.beat).population.to_f,
-        total_crime: find_by_beat(b.beat).crimes.length,
-        violent: find_by_beat(b.beat).crimes.where(violent:"violent").count
+        population: b.population.to_f,
+        total_crime: b.total_crimes.to_f,
+        per_cap: b.total_crimes.to_f/b.population.to_f
       }
     }
-
   end
 
   def time_range(timeval,timeperiod)

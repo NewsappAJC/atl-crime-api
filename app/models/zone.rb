@@ -7,19 +7,6 @@ class Zone < ActiveRecord::Base
   scope :all_zones, -> { where.not("zone = ? or zone = ? or zone = ?", '0', ' ', '9') }
   #scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
 
-  def self.count_crimes
-    _zones = find(:all)
-
-    return _zones.map { |z| 
-      {
-        zone: z.zone,
-        population: find_by_zone(z.zone).population.to_f,
-        total_crime: find_by_zone(z.zone).crimes.length,
-        violent: find_by_zone(z.zone).crimes.where(violent:"violent").count
-      }
-    }
-
-  end
 
   def self.created_between_count(start_date)
     maxDay = Crime.maximum("occur_date")
@@ -58,8 +45,8 @@ class Zone < ActiveRecord::Base
     return z.beats.map{ |b|
         {
           beat: b.beat,
-          total_crimes: b.crimes.length,
-          crimes_percap: b.crimes.length/b.population.to_f
+          total_crimes: b.total_crimes,
+          crimes_percap: b.total_crimes.to_f/b.population.to_f
         }
       }
   end

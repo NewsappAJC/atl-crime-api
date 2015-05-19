@@ -14,7 +14,7 @@ class BeatsController < ApplicationController
   end
 
   def beat_crime
-    @beats = Beat.count_crimes
+    @beats = Beat.beat_details
     render json: @beats, callback: params[:callback]
   end
 
