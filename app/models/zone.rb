@@ -42,11 +42,16 @@ class Zone < ActiveRecord::Base
   def self.zone_beats(zone)
     z = find_by_zone(zone)
     crimes_in_zone = z.crimes
+    max = Crime.maximum(:occur_date)
+    min = DateTime.new(2009)
+
+    range = ((max - min) / 1.year)
     return z.beats.map{ |b|
         {
           beat: b.beat,
           total_crimes: b.total_crimes,
-          crimes_percap: b.total_crimes.to_f/b.population.to_f
+          population: b.population.to_f,
+          crimes_percap: (b.total_crimes/b.population.to_f)/range
         }
       }
   end

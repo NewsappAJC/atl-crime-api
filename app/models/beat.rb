@@ -11,13 +11,19 @@ class Beat < ActiveRecord::Base
   def self.beat_details
     _beats = find(:all)
 
+    max = Crime.maximum(:occur_date)
+    min = DateTime.new(2009)
+
+    range = ((max - min) / 1.year)
+
+
     return _beats.map { |b| 
       {
         beat: b.beat,
         zone: b.zone_id,
         population: b.population.to_f,
         total_crime: b.total_crimes.to_f,
-        per_cap: b.total_crimes.to_f/b.population.to_f
+        per_cap: (b.total_crimes.to_f/b.population.to_f)/range
       }
     }
   end

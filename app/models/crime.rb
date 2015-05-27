@@ -79,9 +79,8 @@ class Crime < ActiveRecord::Base
   #   return self.time_range('1','month')
   # end
 
-  def crime_list(field,value)
+  def self.crime_list
     self.created_between("1/1/2009".to_date,Time.now)
-        .where("#{field} = ?", value)
         .group("YEAR(occur_date)")
         .group("MONTH(occur_date)")
         .count.to_a
@@ -96,8 +95,8 @@ class Crime < ActiveRecord::Base
 
   def self.filter_crimes
     pop = (447841/100).to_f
-    violent = crime_list('violent','violent')
-    nonviolent = crime_list('violent','nonviolent')
+    violent = self.where("violent = ?", "violent").crime_list
+    nonviolent = self.where("violent = ?", "nonviolent").crime_list
     t = group("HOUR(occur_time)").count.to_a
     #crime = Crime.group("YEAR(occur_date)").group("MONTH(occur_date)").count.to_a
     group_crimes = created_between_count("1/1/2009".to_date)

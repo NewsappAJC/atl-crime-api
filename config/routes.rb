@@ -1,10 +1,10 @@
 ApdApi::Application.routes.draw do
 
   get '/' => 'crimes#count_city'
-  get '/filter' => 'crimes#filter_city'
-  get '/beat-details' => 'crimes#city_beats'
-  get '/compare' => 'crimes#citywide_comp'
-  get '/lastday' => 'crimes#lastday'
+  get 'filter' => 'crimes#filter_city'
+  get 'beat-details' => 'crimes#city_beats'
+  get 'compare' => 'crimes#citywide_comp'
+  get 'lastday' => 'crimes#lastday'
   # get '/map' => 'zones#show_all_crimes'
 
   #zones subview
