@@ -75,7 +75,7 @@ task :csv => :environment do
 		end
 
 		newObj[:occur_time] = obj[:occur_time]
-		newObj[:beat] = obj[:beat]
+		newObj[:beat_id] = obj[:beat]
 		newObj[:zone] = zone[0]
 		newObj[:location] = obj[:location]
 		newObj[:MaxOfnum_victims] = obj[:MaxOfnum_victims]

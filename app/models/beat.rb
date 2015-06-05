@@ -7,8 +7,6 @@ class Beat < ActiveRecord::Base
 
   scope :list_beats, lambda { |zone| where('zone = ?', zone) }
   scope :all_beats
-<<<<<<< HEAD
-=======
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
 
   def self.beat_details
@@ -102,7 +100,6 @@ class Beat < ActiveRecord::Base
         .group("MONTH(occur_date)")
         .count.to_a
   end
->>>>>>> develop
 
 
 end

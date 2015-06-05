@@ -19,11 +19,8 @@
 /tmp/sessions
 /tmp/sockets
 
-<<<<<<< HEAD
-config/database.yml
-=======
+
 #config/database.yml
->>>>>>> develop
 #config/amazon-rds-ca-cert.pem
 
 

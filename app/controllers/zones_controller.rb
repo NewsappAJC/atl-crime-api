@@ -23,8 +23,6 @@ class ZonesController < ApplicationController
   	render json: @zones, callback: params[:callback]
   end
 
-<<<<<<< HEAD
-=======
   def zone_violent
     @zones = Zone.violent_filter(params[:zone])
     render json: @zones, callback: params[:callback]
@@ -45,5 +43,4 @@ class ZonesController < ApplicationController
     render json: @zones, callback: params[:callback]
   end
 
->>>>>>> develop
 end
