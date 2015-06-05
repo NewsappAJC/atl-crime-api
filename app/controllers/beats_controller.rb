@@ -13,5 +13,27 @@ class BeatsController < ApplicationController
   	render json: @beats, callback: params[:callback]
   end
 
+<<<<<<< HEAD
+=======
+  def beat_crime
+    @beats = Beat.beat_details
+    render json: @beats, callback: params[:callback]
+  end
+
+  def beat_crimes
+    @beats = Beat.count_crimes_bybeat(params[:beat])
+    render json: @beats, callback: params[:callback]
+  end
+
+  def filter_beat
+    @beats = Beat.filter(params[:beat])
+    render json: @beats, callback: params[:callback]
+  end
+
+  def beat_map
+    @beats = Beat.map_crimes(params[:beat])
+    render json: @beats, callback: params[:callback]
+  end
+>>>>>>> develop
 
 end

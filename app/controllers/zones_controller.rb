@@ -23,4 +23,27 @@ class ZonesController < ApplicationController
   	render json: @zones, callback: params[:callback]
   end
 
+<<<<<<< HEAD
+=======
+  def zone_violent
+    @zones = Zone.violent_filter(params[:zone])
+    render json: @zones, callback: params[:callback]
+  end
+
+  def zone_hours
+    @zones = Zone.hours_filter(params[:zone])
+    render json: @zones, callback: params[:callback]
+  end
+
+  def zone_map
+    @zones = Zone.map_crimes(params[:zone])
+    render json: @zones, callback: params[:callback]
+  end
+
+  def beats
+    @zones = Zone.zone_beats(params[:zone])
+    render json: @zones, callback: params[:callback]
+  end
+
+>>>>>>> develop
 end
