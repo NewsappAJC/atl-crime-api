@@ -19,8 +19,8 @@
 /tmp/sessions
 /tmp/sockets
 
-config/database.yml
-config/amazon-rds-ca-cert.pem
+#config/database.yml
+#config/amazon-rds-ca-cert.pem
 
 
 *.rbc
