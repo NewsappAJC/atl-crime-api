@@ -1,9 +1,8 @@
 class Zone < ActiveRecord::Base
   
   self.primary_key = :zone # or other primary key
-  # has_many :crimes
-  has_many :beats, :foreign_key => 'zone'
-  has_many :crimes, :through => :beats, :foreign_key => 'zone'
+  has_many :beats
+  has_many :crimes
 
   scope :all_zones, -> { where.not("zone = ? or zone = ? or zone = ?", '0', ' ', '9') }
   #scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
@@ -24,7 +23,7 @@ class Zone < ActiveRecord::Base
   def self.count_crimes_byzone(zone)
     z = find_by_zone(zone)
     crimes_in_zone = z.crimes.time_range('1','month')
-   	return { 
+    return { 
       zone: z.zone,
       population: z.population.to_f,
       totals: {
@@ -103,7 +102,7 @@ class Zone < ActiveRecord::Base
     return self.where("occur_date >= ? AND occur_date <= ?", start_date, end_date )
   end
 
-  def crime_list
+  def crime_list(field,value)
     self.crimes
         .created_between_count("1/1/2009".to_date)
         .where("#{field} = ?", value)
@@ -112,8 +111,16 @@ class Zone < ActiveRecord::Base
         .count.to_a
   end
 
-  def active_model_serilaizer
-    ZoneSerializer
+  def top_beats
+    arr = self.beats.sort! { |a,b| b.crimes.length/b.population.to_f <=> a.crimes.length/a.population.to_f }.first(3)
+
+    return arr.map{ |b|
+      {
+        beat: b.beat,
+        crimes_percap: b.crimes.length/b.population.to_f
+      }
+    }
+
   end
 
 end
