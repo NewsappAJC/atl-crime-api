@@ -11,26 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113170231) do
+ActiveRecord::Schema.define(version: 20150818213341) do
 
   create_table "beats", id: false, force: true do |t|
-    t.string "beat"
-    t.string "zone"
-    t.string "population", limit: 63
+    t.string  "beat"
+    t.string  "zone_id"
+    t.integer "total_crimes", limit: 8,  default: 0, null: false
+    t.string  "population",   limit: 63
   end
 
-  create_table "beats_list", id: false, force: true do |t|
-    t.string "zone"
-    t.string "beat"
+  create_table "beats_pop", id: false, force: true do |t|
+    t.string "beat",       limit: 63
+    t.string "population", limit: 63
   end
 
   create_table "crimes", force: true do |t|
     t.string   "crime_id"
-    t.integer  "offense_id"
+    t.integer  "offense_id",       limit: 8
     t.string   "rpt_date"
     t.datetime "occur_date"
     t.string   "occur_time"
-    t.string   "beat"
+    t.string   "beat_id"
     t.string   "location"
     t.string   "MaxOfnum_victims"
     t.string   "Shift"
@@ -38,33 +39,20 @@ ActiveRecord::Schema.define(version: 20150113170231) do
     t.string   "x"
     t.string   "y"
     t.string   "crime"
-    t.string   "zone"
+    t.string   "zone_id"
     t.string   "violent"
-  end
-
-  create_table "neighborhoods", id: false, force: true do |t|
-    t.string "zone"
-    t.string "beat"
-    t.string "neighborhood"
-  end
-
-  create_table "pop", id: false, force: true do |t|
-    t.string "Beat",       limit: 63
-    t.string "Population", limit: 63
-  end
-
-  create_table "zone_pop", id: false, force: true do |t|
-    t.string "Zone",       limit: 63
-    t.string "Population", limit: 63
+    t.string   "crime_detail"
   end
 
   create_table "zones", id: false, force: true do |t|
-    t.string "zone"
-    t.string "population", limit: 63
+    t.string  "zone"
+    t.integer "total_crimes", limit: 8,  default: 0, null: false
+    t.string  "population",   limit: 63
   end
 
-  create_table "zones_list", id: false, force: true do |t|
-    t.string "zone"
+  create_table "zones_pop", id: false, force: true do |t|
+    t.string "zone",       limit: 63
+    t.string "population", limit: 63
   end
 
 end

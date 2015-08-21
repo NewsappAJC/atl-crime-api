@@ -1,8 +1,8 @@
 class CreateCrimes < ActiveRecord::Migration
   def change
     create_table :crimes do |t|
-      t.string :crime_id
-      t.integer :offense_id
+      t.integer :crime_id
+      t.string :offense_id
       t.string :rpt_date
       t.datetime :occur_date
       t.string :occur_time

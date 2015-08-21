@@ -44,28 +44,38 @@ task :csv => :environment do
       out << outdata.chomp
   end
 
+
   _new = File.new("tmp/newdata.csv", "w")
 
-  open(filename, 'r').each { |l| _new << l.gsub(/\s{3}/,'') unless !l.chomp.include? ',' }
+  open(filename, 'r').each { |l| 
+    newline = l.gsub(/\s{3}/,'') unless !l.chomp.include? ','
+    if newline.split(',').length<24
+      _new << l.gsub(/\s{3}/,'') unless !l.chomp.include? ','
+    end
+  }
 
   
   options = {:quote_char => "\x00", :verbose => true, :chunk_size => 1, :convert_values_to_numeric => false, :downcase_header => false, :header_converters => lambda { |h| h.gsub(' ', '_') }, :key_mapping => { :unwanted_row => nil, :old_row_name => :new_name }}
 
-  max = Crime.maximum(:offense_id).to_f
+  max = Crime.maximum(:crime_id).to_f
+
+
   
+  #puts Crime.first.length
+
   n = SmarterCSV.process("tmp/newdata.csv", options) do |array|
 
-
-      obj = array.first
+    obj = array.first
       
-      newObj = {}
+    newObj = {}
 
 
-      newObj[:crime_id] = obj.values[0]
-      newObj[:offense_id] = obj[:offense_id]
-      newObj[:rpt_date] = obj[:rpt_date]
+    newObj[:crime_id] = obj.values[0]
+    newObj[:offense_id] = obj[:offense_id]
+    newObj[:rpt_date] = obj[:rpt_date]
 
-      occured = obj[:occur_date]
+    occured = obj[:occur_date]
+    
     zone = ''
     if !obj[:beat].blank?
       zone = obj[:beat]
@@ -80,10 +90,18 @@ task :csv => :environment do
     newObj[:location] = obj[:location]
     newObj[:MaxOfnum_victims] = obj[:MaxOfnum_victims]
     newObj[:Shift] = obj[:Shift]
-    newObj[:crime] = obj[:UC2_Literal]
     newObj[:neighborhood] = obj[:neighborhood]
     newObj[:x] = obj[:x]
     newObj[:y] = obj[:y]
+
+    crime_type = obj[:UC2_Literal].split('-')
+    newObj[:crime] = crime_type[0]
+
+    if crime_type.length>1
+      newObj[:crime_detail] = crime_type[-1]
+    else
+      newObj[:crime_detail] = nil
+    end
 
     violent = ['HOMICIDE','RAPE','AGG ASSAULT','ROBBERY']
 
@@ -93,17 +111,16 @@ task :csv => :environment do
       newObj[:violent] = 'nonviolent'
     end
 
-    
 
-    if newObj[:offense_id].to_f > max
+    if newObj[:crime_id].to_f > max
 
-        newCrime = Crime.new(newObj)
-        if newCrime.valid?
-          newCrime.save 
-        end
-
-        puts newObj[:occur_date]
+      newCrime = Crime.new(newObj)
+      if newCrime.valid?
+        newCrime.save 
       end
+
+      puts newObj[:occur_date]
+    end
 
 
   end
