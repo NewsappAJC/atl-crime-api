@@ -24,7 +24,7 @@ Import new crime data
 /lastday => crimes#lastday
 
 
- ####zones subview
+####zones subview
 
 /zones/ => zones#all_zones
 
