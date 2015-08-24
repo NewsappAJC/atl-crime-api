@@ -1,40 +1,35 @@
 # AJC CRIME API #
 
-Drop current table and set up new table for new crime data
+Set up new table for new crime data
      
-    rake db:drop db:create db:migrate
+    rake db:migrate
 
 Import new crime data
 
-	rake import
+	rake csv
 
 
 ### API Routes available: ###
 
-/crimes/current_year -> this year
+####overall
+/ => crimes#count_city
+/filter => crimes#filter_city
+/beat-details => crimes#city_beats
+/compare => crimes#citywide_comp
+/lastday => crimes#lastday
 
-/crimes/current_month -> this month
+ ####zones subview
+/zones/ => zones#all_zones
+/zone/:zone => zones#this_zone
+/zone/:zone/map => zones#zone_map
+/zone/:zone/beat-details => zones#beats
+/zone/:zone/filter => zones#filter_zone
 
-/crimes/month/:year/:month -> specific month
-
-/crimes/day/:year/:month/:day -> specific day
-
-/crimes/:id -> by id
-
-/crimes/:field/:value
-
-/crimes/:field/:value/thismonth
-
-/crimes/:field/:value/thisyear
-
-/crimes/:field/:value/:field2/:value2
-
-/crimes/:field/:value/thismonth/:field2/:value2
-
-/crimes/:field/:value/thisyear/:field2/:value2
+####beats subview
+/beat/ => beats#beat_crime
+/beat/:beat => beats#beat_crimes
+/beat/:beat/map => beats#beat_map
+/beat/:beat/filter => beats#filter_beat
 
 
 ### TO DO ###
-* Beats tables with neighborhood and population data
-* Set up cron job/scraper to grab data and unzip from APD
-
