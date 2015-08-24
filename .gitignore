@@ -24,6 +24,10 @@ config/database.yml
 config/amazon-rds-ca-cert.pem
 
 
+data.csv
+newdata.csv
+
+
 *.rbc
 *.sassc
 .sass-cache
