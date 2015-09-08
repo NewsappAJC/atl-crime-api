@@ -24,6 +24,8 @@
 class Crime < ActiveRecord::Base
 
   validates_uniqueness_of :crime_id, :presence => true
+
+  validates_uniqueness_of :offense_id
   #belongs_to :zone
   # belongs_to :beat
 
