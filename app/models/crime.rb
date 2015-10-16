@@ -44,6 +44,7 @@ class Crime < ActiveRecord::Base
   scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
 
 
+
   def self.time_range(timeval,timeperiod)
     t = timeval.to_i
     end_date = Crime.select(:occur_date).order("occur_date DESC").first.occur_date
@@ -82,7 +83,7 @@ class Crime < ActiveRecord::Base
   # end
 
   def self.crime_list
-    self.created_between("1/1/2009".to_date,Time.now)
+    self.created_between_count("1/1/2009".to_date)
         .group("YEAR(occur_date)")
         .group("MONTH(occur_date)")
         .count.to_a
@@ -90,7 +91,7 @@ class Crime < ActiveRecord::Base
 
   def self.created_between_count(start_date)
     maxDay = Crime.maximum("occur_date")
-    end_date = maxDay - (maxDay.day).day    # subtracts day of the month from last date in database to only Crime entries through last full month of data :)
+    end_date = maxDay - (maxDay.day).days   # subtracts day of the month from last date in database to only Crime entries through last full month of data :)
     return where("occur_date >= ? AND occur_date <= ?", start_date, end_date)
   end
 

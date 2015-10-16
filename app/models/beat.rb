@@ -93,7 +93,7 @@ class Beat < ActiveRecord::Base
 
   def crime_list(field,value)
     self.crimes
-        .created_between("1/1/2009".to_date,Time.now)
+        .created_between_count("1/1/2009".to_date)
         .where("#{field} = ?", value)
         .group("YEAR(occur_date)")
         .group("MONTH(occur_date)")

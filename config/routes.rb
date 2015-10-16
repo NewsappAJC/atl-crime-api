@@ -6,6 +6,8 @@ ApdApi::Application.routes.draw do
   get 'lastday' => 'crimes#lastday'
   # get '/map' => 'zones#show_all_crimes'
 
+  get '/counts' => 'crime_counts#zone_totals'
+
   #zones subview
   get 'zones/' => 'zones#all_zones'
   get 'zone/:zone' => 'zones#this_zone'

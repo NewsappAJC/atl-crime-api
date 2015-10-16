@@ -25,6 +25,27 @@ ActiveRecord::Schema.define(version: 20150818213341) do
     t.string "population", limit: 63
   end
 
+  create_table "census_blocks", id: false, force: true do |t|
+    t.integer "STATEFP10"
+    t.string  "COUNTYFP10"
+    t.string  "TRACTCE10"
+    t.integer "BLOCKCE"
+    t.integer "BLOCKID10",  limit: 8
+    t.string  "PARTFLG"
+    t.integer "HOUSING10"
+    t.integer "POP10"
+    t.string  "BEAT"
+  end
+
+  create_table "crime_counts", id: false, force: true do |t|
+    t.integer "crimemonth"
+    t.integer "crimeyear"
+    t.string  "zone_id"
+    t.string  "crime"
+    t.string  "crime_detail"
+    t.integer "count",        limit: 8, default: 0, null: false
+  end
+
   create_table "crimes", force: true do |t|
     t.string   "crime_id"
     t.integer  "offense_id",       limit: 8
