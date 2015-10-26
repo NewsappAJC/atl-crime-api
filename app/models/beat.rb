@@ -50,9 +50,11 @@ class Beat < ActiveRecord::Base
   def self.count_crimes_bybeat(beat)
     b = find_by_beat(beat)
     crimes_in_beat = b.crimes.time_range('1','month')
+    neighborhoods = b.neighborhoods.to_enum(:each_with_index).map{|a,i| "#{a.neighborhood}"}
     return { 
       beat: b.beat,
       population: b.population.to_f,
+      neighborhoods: neighborhoods,
       totals: {
         total_crime: crimes_in_beat.length,
         violent: {

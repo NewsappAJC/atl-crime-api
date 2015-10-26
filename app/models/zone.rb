@@ -24,9 +24,11 @@ class Zone < ActiveRecord::Base
   def self.count_crimes_byzone(zone)
     z = find_by_zone(zone)
     crimes_in_zone = z.crimes.time_range('1','month')
+    neighborhoods = z.neighborhoods.to_enum(:each_with_index).map{|a,i| "#{a.neighborhood}"}
     return { 
       zone: z.zone,
       population: z.population.to_f,
+      neighborhoods: neighborhoods,
       totals: {
         total_crime: crimes_in_zone.length,
         violent: {
