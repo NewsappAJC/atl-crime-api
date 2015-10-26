@@ -11,39 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818213341) do
+ActiveRecord::Schema.define(version: 20151023194232) do
 
   create_table "beats", id: false, force: true do |t|
     t.string  "beat"
     t.string  "zone_id"
     t.integer "total_crimes", limit: 8,  default: 0, null: false
     t.string  "population",   limit: 63
-  end
-
-  create_table "beats_pop", id: false, force: true do |t|
-    t.string "beat",       limit: 63
-    t.string "population", limit: 63
-  end
-
-  create_table "census_blocks", id: false, force: true do |t|
-    t.integer "STATEFP10"
-    t.string  "COUNTYFP10"
-    t.string  "TRACTCE10"
-    t.integer "BLOCKCE"
-    t.integer "BLOCKID10",  limit: 8
-    t.string  "PARTFLG"
-    t.integer "HOUSING10"
-    t.integer "POP10"
-    t.string  "BEAT"
-  end
-
-  create_table "crime_counts", id: false, force: true do |t|
-    t.integer "crimemonth"
-    t.integer "crimeyear"
-    t.string  "zone_id"
-    t.string  "crime"
-    t.string  "crime_detail"
-    t.integer "count",        limit: 8, default: 0, null: false
   end
 
   create_table "crimes", force: true do |t|
@@ -63,17 +37,33 @@ ActiveRecord::Schema.define(version: 20150818213341) do
     t.string   "zone_id"
     t.string   "violent"
     t.string   "crime_detail"
+    t.string   "npu"
+  end
+
+  add_index "crimes", ["occur_date", "beat_id"], name: "date_beat", using: :btree
+  add_index "crimes", ["occur_date", "zone_id"], name: "date_zone", using: :btree
+  add_index "crimes", ["occur_date"], name: "occur_date", using: :btree
+  add_index "crimes", ["violent", "occur_date"], name: "violent_date", using: :btree
+
+  create_table "pop", id: false, force: true do |t|
+    t.integer "Beat"
+    t.integer "Population"
+  end
+
+  create_table "zone_counts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "zone_pop", id: false, force: true do |t|
+    t.integer "Zone"
+    t.integer "Population"
   end
 
   create_table "zones", id: false, force: true do |t|
     t.string  "zone"
     t.integer "total_crimes", limit: 8,  default: 0, null: false
     t.string  "population",   limit: 63
-  end
-
-  create_table "zones_pop", id: false, force: true do |t|
-    t.string "zone",       limit: 63
-    t.string "population", limit: 63
   end
 
 end

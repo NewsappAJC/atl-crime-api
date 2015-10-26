@@ -1,4 +1,5 @@
 ApdApi::Application.routes.draw do
+  resources :neighborhoods, except: [:new, :edit]
   get '/' => 'crimes#count_city'
   get 'filter' => 'crimes#filter_city'
   get 'beat-details' => 'crimes#city_beats'
@@ -20,4 +21,9 @@ ApdApi::Application.routes.draw do
   get 'beat/:beat' => 'beats#beat_crimes'
   get 'beat/:beat/map' => 'beats#beat_map'
   get 'beat/:beat/filter' => 'beats#filter_beat'
+
+  get 'neighborhoods/list/beats' => 'neighborhoods#beat_group'
+  get 'neighborhoods/list/zones' => 'neighborhoods#zone_group'
+
+
 end

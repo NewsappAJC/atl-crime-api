@@ -3,6 +3,7 @@ class Zone < ActiveRecord::Base
   self.primary_key = :zone # or other primary key
   has_many :beats
   has_many :crimes
+  has_many :neighborhoods
 
   scope :all_zones, -> { where.not("zone = ? or zone = ? or zone = ?", '0', ' ', '9') }
   #scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
