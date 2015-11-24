@@ -92,10 +92,8 @@ task :csv => :environment do
       newObj[:location] = obj[:location]
       newObj[:MaxOfnum_victims] = obj[:MaxOfnum_victims]
       newObj[:Shift] = obj[:Shift]
-      newObj[:neighborhood] = obj[:neighborhood]
       newObj[:x] = obj[:x]
       newObj[:y] = obj[:y]
-      newObj[:npu] = obj[:npu]
 
       crime_type = obj[:UC2_Literal].split('-')
       newObj[:crime] = crime_type[0]

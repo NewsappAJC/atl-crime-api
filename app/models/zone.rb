@@ -5,8 +5,8 @@ class Zone < ActiveRecord::Base
   has_many :crimes
   has_many :neighborhoods
 
-  scope :all_zones, -> { where.not("zone = ? or zone = ? or zone = ?", '0', ' ', '9') }
-  #scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
+  #scope :all_zones, -> { where.not("zone = ? or zone = ? or zone = ?", '0', ' ', '9') }
+  scope :created_between, lambda {|start_date, end_date| where("occur_date >= ? AND occur_date <= ?", start_date, end_date )}
 
 
   def self.created_between_count(start_date)
@@ -24,22 +24,43 @@ class Zone < ActiveRecord::Base
   def self.count_crimes_byzone(zone)
     z = find_by_zone(zone)
     crimes_in_zone = z.crimes.time_range('1','month')
+    rate = crime_change(z)
     neighborhoods = z.neighborhoods.to_enum(:each_with_index).map{|a,i| "#{a.neighborhood}"}
     return { 
       zone: z.zone,
       population: z.population.to_f,
       neighborhoods: neighborhoods,
+
       totals: {
+        dates: [crimes_in_zone.order("occur_date DESC").first.occur_date, crimes_in_zone.order("occur_date DESC").last.occur_date],
         total_crime: crimes_in_zone.length,
         violent: {
           violent: crimes_in_zone.where('violent'=>'violent').length,
           nonviolent: crimes_in_zone.where('violent'=>'nonviolent').length
         },
         crime_type: crimes_in_zone.group("crime").count
+      },
+      change: {
+        dates: [rate[:lastyear].order("occur_date DESC").first.occur_date, rate[:lastyear].order("occur_date DESC").last.occur_date],
+        total_crime: percent_change(rate[:lastyear].length,rate[:lastmonth].length,'crime'),
+        violent: percent_change(rate[:lastyear].where('violent'=>'violent').length,rate[:lastmonth].where('violent'=>'violent').length,'violent crime'),
+        nonviolent: percent_change(rate[:lastyear].where('violent'=>'nonviolent').length,rate[:lastmonth].where('violent'=>'nonviolent').length,'nonviolent crime')
       }
       # },
       # top_beats: z.top_beats
     }
+  end
+
+  def self.all_zones
+    zones = self.where.not("zone = ? or zone = ? or zone > ?", '0', ' ', '6')
+    return zones.map{ |z|
+      {
+        zone: z.zone,
+        population: z.total_crimes,
+        neighborhoods: z.neighborhoods.to_enum(:each_with_index).map{|a,i| "#{a.neighborhood}"}
+      }
+    }
+
   end
 
   def self.zone_beats(zone)
@@ -64,6 +85,7 @@ class Zone < ActiveRecord::Base
     crimes_in_zone = z.crimes
     return crimes_in_zone.time_range('1','month')
   end
+
 
   def self.filter(zone)
     z = find_by_zone(zone)
@@ -113,6 +135,40 @@ class Zone < ActiveRecord::Base
         .group("MONTH(occur_date)")
         .count.to_a
   end
+
+
+  def self.crime_change(z)
+    last_crime = Crime.select(:occur_date).order("occur_date DESC").first.occur_date
+    last_year = last_crime - 1.year
+    return {
+      lastyear: z.crimes.where("occur_date >= ? AND occur_date <= ?", last_year - 1.month, last_year ),
+      lastmonth: z.crimes.where("occur_date >= ? AND occur_date <= ?", last_crime - 1.month, last_crime )
+    }
+  end
+
+  def self.percent_change(oldnum,newnum,crime)
+    change = newnum.to_f-oldnum.to_f
+    if change<0
+      newchange = change*-1
+      perc = ((newchange/oldnum)*100).round(2)
+      return {
+        oldnum: oldnum,
+        newnum: newnum,
+        percent: '-'+perc.to_s+'%',
+        text: 'The last 30 days have had ' + perc.to_s + '% fewer '+ crime + ' incidents than this time last year.'
+      }
+    else
+      perc = ((change/oldnum)*100).round(2)
+      return {
+        oldnum: oldnum,
+        newnum: newnum,
+        percent:'+'+perc.to_s+'%',
+        text: 'The last 30 days have had ' + perc.to_s + '% more '+ crime + ' incidents than this time last year.'
+      }
+    end
+
+  end
+
 
   def top_beats
     arr = self.beats.sort! { |a,b| b.crimes.length/b.population.to_f <=> a.crimes.length/a.population.to_f }.first(3)
