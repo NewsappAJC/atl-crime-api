@@ -139,10 +139,10 @@ class Zone < ActiveRecord::Base
 
   def self.crime_change(z)
     last_crime = Crime.select(:occur_date).order("occur_date DESC").first.occur_date
-    last_year = last_crime - 1.year
+    last_month = last_crime - last_crime.day.days
     return {
-      lastyear: z.crimes.where("occur_date >= ? AND occur_date <= ?", last_year - 1.month, last_year ),
-      lastmonth: z.crimes.where("occur_date >= ? AND occur_date <= ?", last_crime - 1.month, last_crime )
+      lastyear: z.crimes.where("occur_date >= ? AND occur_date <= ?", last_month - 2.month, last_month-1.month ),
+      lastmonth: z.crimes.where("occur_date >= ? AND occur_date <= ?", last_month - 1.month, last_month )
     }
   end
 
@@ -155,7 +155,7 @@ class Zone < ActiveRecord::Base
         oldnum: oldnum,
         newnum: newnum,
         percent: '-'+perc.to_s+'%',
-        text: 'The last 30 days have had ' + perc.to_s + '% fewer '+ crime + ' incidents than this time last year.'
+        text: 'Last month saw ' + perc.to_s + '% fewer '+ crime + ' incidents than the month before.'
       }
     else
       perc = ((change/oldnum)*100).round(2)
@@ -163,7 +163,7 @@ class Zone < ActiveRecord::Base
         oldnum: oldnum,
         newnum: newnum,
         percent:'+'+perc.to_s+'%',
-        text: 'The last 30 days have had ' + perc.to_s + '% more '+ crime + ' incidents than this time last year.'
+        text: 'Last month saw ' + perc.to_s + '% more '+ crime + ' incidents than the month before.'
       }
     end
 
