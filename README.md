@@ -30,6 +30,6 @@ Import new crime data
 'beat/:beat' => 'beats#beat_crimes'
 'beat/:beat/map' => 'beats#beat_map'
 'beat/:beat/filter' => 'beats#filter_beat'
-
 'neighborhoods/list/beats' => 'neighborhoods#beat_group'
 'neighborhoods/list/zones' => 'neighborhoods#zone_group'
+
